@@ -1,9 +1,9 @@
 program caesar
     implicit none
-    character(11) :: s1
-    character(11) :: s2
-    s1 = 'hello world'
-    call encrypt(s1, 11, 8, s2)
+    character(31) :: s1
+    character(31) :: s2
+    s1 = 'This is a test string from Alan'
+    call encrypt(s1, 31, 8, s2)
     print *, s2
 contains
     subroutine encrypt(inputString, stringLength, shiftAmount, outputString)
@@ -11,17 +11,23 @@ contains
         integer, intent(in) :: stringLength, shiftAmount
         character(stringLength), intent(in) :: inputString
         character(stringLength) :: outputString
-        integer :: index, charValue
+        integer :: index, charValue, diff
         outputString = inputString
 
         ! http://computer-programming-forum.com/49-fortran/4075a24f74fcc9ce.htm
         do index = 1, len(outputString)
             charValue = ichar(outputString(index:index))
-            print *, charValue
             if (charValue >= 97 .and. charValue <= 122) then
                 charValue = charValue - 32
-                outputString(index:index) = char(charValue)
             endif
+            if (charValue >= 65 .and. charValue <= 90) then
+                charValue = charValue + shiftAmount
+                diff = charValue - 90
+	            if (diff > 0) then
+                    charValue = 65 + diff - 1
+	            endif
+	        endif
+            outputString(index:index) = char(charValue)
         enddo
     end subroutine encrypt
 end program caesar
