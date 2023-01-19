@@ -20,6 +20,7 @@ program caesar
 
     ! Call the solve subroutine
     call solve('HAL', 3, 26)
+    
 contains
 
     ! Subroutine to encrypt a string of size stringLength by shiftAmount and store the result in outputString
