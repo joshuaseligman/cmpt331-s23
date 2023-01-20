@@ -48,11 +48,13 @@ I am predicting that it will take me around \textbf{20 hours (average of 4 hours
 		\hline
 		Date & Hours Spent & Tasks / Accomplishments / Issues / Thoughts \\
 		\hline
-		January 18 & 3 hours & I built the entire Caesar cipher in Fortran.\\
+		January 18 & 3 hours & I built the entire Caesar cipher in Fortran, which was a bit frustrating but not the worst thing in the world.\\
 		\hline
 		January 19 & 3 hours & I started working on the Caesar cipher in COBOL. This has been exponentially more difficult than Fortran as some of the language's tiny details made me stare at a computer screen for hours without any resources because there were no error messages or warnings.\\
 		\hline
-		January 20 & 15 minutes & I modified my Fortran implementation to account for negative shift amounts and shift amounts greater than 26.
+		January 20 & 0.25 hours & I modified my Fortran implementation to account for negative shift amounts and shift amounts greater than 26. \\
+		\hline
+		January 20 & 1.5 hours & I finished writing the Caesar cipher in COBOL and dealt with more of COBOL's small nuances that did not provide error messages or warnings. Luckily, it did not take me nearly as long to find the issues today as it did for me yesterday. \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -86,21 +88,32 @@ Overall, aside from the variables being declared up top, Fortran is quite a clea
 
 
 \subsection{COBOL}
-% ord is off by one
-% 08 was needed instead of 8 (crazy output otherwise, print statements said it was an 8, and no warnings, errors, or other messages)
-% 3 hours so far
+\subsubsection{My Thoughts}
+Based on my experience with writing the Caesar cipher in COBOL, I have determined that it is not a user-friendly programming language in the slightest of ways. COBOL is extremely readable and self-documenting as every operation and section is explicitly defined by the programmer. This is the only decent thing going for it as the rest of my experience was dreadful due to its poor implicit type conversions and its lack of stack frames for functions.
+\\ \\
+First, the implicit type conversions for passing in parameters to functions was a nightmare to deal with by itself. In each function, all variables are defined with their types, and numeric types need to state the number of digits the variable will take up. However, oftentimes as a programmer you want to pass in a raw number to a function as the number will not be used anywhere else, so storing it in a variable would not be very useful. However, COBOL does not interpret these values well against defined types. For instance, an unsigned integer parameter that needs to store 2 digits must take in a number like "08" and not just "8." The main problem here is that the compiler does not say anything is wrong with the input. Instead, it can print out that it has an "8," but all mathematical operations with the value will be completely off. The same goes with signed numbers as well, but they basically do not even work as "-001" in a 3-digit signed integer comes back as "-00" and the "1" is missing, not to mention wild math results as well. Unfortunately, the only way to really deal with parameters is to pass in a variable that has the value you want to pass in. This ensures type safety as an "8" will be the same as "08," which contradicts the problems stated before. It almost reminds me of truthy and falsy values in JavaScript as you sometimes cannot tell what the output will be because the compiler just does its own thing without telling you what it is going to do.
+\\ \\
+Another serious issue that I faced was the lack of stack frames with function calls. In my experiences with many other programming languages, they all seem to use stack frames for function calls. That is, any variable defined in a function exists for no longer than the duration of the function. This means that the next time the function is called, the variable will be reinitialized with its starting value every time. Unfortunately, this is not the case for COBOL. Based on what I am able to tell, all variables defined in data divisions exist for the entirety of the program's lifespan. Therefore, the state of the variables for a function will be preserved across multiple function calls. COBOL lets you initialize variables in the data division with a value, but it is basically useless for functions that need to make sure that the variables get reset at the start of the function call anyway. This is another example of COBOL making itself really difficult to use because it provides functionality for features that do not make sense, at least relative to today's standards and paradigms.
+\\ \\
+Writing my Caesar cipher in COBOL was by far one of the most challenging things I have done as a programmer. In fact, COBOL's poor writability made Fortran look good, which demonstrates how bad my COBOL experience was because I did not originally think highly of Fortran. Although COBOL's code is self-documenting, it was nothing that could not be done with comments in Fortran and could not make up for the excruciatingly difficult task of writing COBOL code.
 
-% cobol hello world
-% cobol column rules
-% functions in cobol
-% user-defined functions in cobol
-% data types in cobol
-% iterate through characters in a string cobol
-% string copy cobol
-% cobol function with both linkage section and working storage
-% convert character to ascii code 
-% get character from ordinal value cobol
-% cobol addition is not right
+\subsubsection{Google Search History}
+\begin{itemize}
+	\item cobol hello world
+	\item cobol column rules
+	\item functions in cobol
+	\item user-defined functions in cobol
+	\item data types in cobol
+	\item iterate through characters in a string cobol
+	\item string copy cobol
+	\item cobol function with both linkage section and working storage
+	\item convert character to ascii code cobol
+	\item get character from ordinal value cobol
+	\item cobol addition is not right
+	\item negative numbers in cobol
+	\item string length cobol
+	\item working storage section variables are not wiped after a function call and their state persists between function calls
+\end{itemize}
 
 \subsection{BASIC}
 
