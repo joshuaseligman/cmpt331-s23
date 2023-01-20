@@ -11,11 +11,11 @@ program caesar
     original = 'This is a test string from Alan'
 
     ! Call encrypt on the original string with a shift of 8
-    call encrypt(original, 31, 8, encryptOutput)
+    call encrypt(original, 31, -27, encryptOutput)
     print *, encryptOutput
 
     ! Decrypt the encrypted value with the shift of 8
-    call decrypt(encryptOutput, 31, 8, decryptOutput)
+    call decrypt(encryptOutput, 31, -27, decryptOutput)
     print *, decryptOutput
 
     ! Call the solve subroutine
@@ -36,13 +36,17 @@ contains
         ! outputString will be modified and has the same length as inputString
         character(stringLength) :: outputString
 
+        ! newShift will be used to make sure the shift amount is between -25 and 25
         ! index will be used to iterate through the string character by character
         ! charValue is the ASCII value of a given character
         ! diff will be used to determine if the wraparound calculation is needed
-        integer :: index, charValue, diff
+        integer :: newShift, index, charValue, diff
 
         ! Start off by setting outputString to the same value is inputString
         outputString = inputString
+
+        ! Convert the shift amount to be between -25 and 25
+        newShift = mod(shiftAmount, 26)
 
         ! Iterate through the string one character at a time
         ! Looping and modifying individual characters found at the link below
@@ -60,22 +64,32 @@ contains
             ! Make sure the character is a letter ('A' - 'Z') because already converted to uppercase
             if (charValue >= 65 .and. charValue <= 90) then
                 ! Perform the shift by the given amount
-                charValue = charValue + shiftAmount
+                charValue = charValue + newShift
 
                 ! diff is how much over the charater is relative to 'Z' (90)
                 diff = charValue - 90
 
                 ! If it went over, wraparound is needed
-	            if (diff > 0) then
+                if (diff > 0) then
                     ! Finish the wraparound by adding the diff to 'A' (65)
                     ! The -1 is needed because a diff of 1 means that the character is 1 beyond 'Z', which will be 'A'
                     charValue = 65 + diff - 1
-	            endif
+                else
+                    ! diff is how much under the charater is relative to 'A' (65)
+                    diff = 65 - charValue
+
+                    ! If it went under, wraparound is needed
+                    if (diff > 0) then
+                        ! Finish the wraparound by subtracting the diff from 'Z' (90)
+                        ! The +1 is needed because a diff of 1 means that the character is 1 beyond 'A', which will be 'Z'
+                        charValue = 90 - diff + 1
+                    endif
+                endif
 
                 ! Update the output string at the index with the new character value
                 ! If the character was not originally a letter, then no change is needed, which is why this is inside of the if block
                 outputString(index:index) = char(charValue)
-	        endif
+            endif
         enddo
     end subroutine encrypt
 
@@ -92,13 +106,17 @@ contains
         ! outputString will be modified and has the same length as inputString
         character(stringLength) :: outputString
 
+        ! newShift will be used to make sure the shift amount is between -25 and 25
         ! index will be used to iterate through the string character by character
         ! charValue is the ASCII value of a given character
         ! diff will be used to determine if the wraparound calculation is needed
-        integer :: index, charValue, diff
+        integer :: newShift, index, charValue, diff
 
         ! Start off by setting outputString to the same value is inputString
         outputString = inputString
+
+        ! Convert the shift amount to be between -25 and 25
+        newShift = mod(shiftAmount, 26)
 
         ! Iterate through the string one character at a time
         ! Looping and modifying individual characters found at the link below
@@ -116,22 +134,32 @@ contains
             ! Make sure the character is a letter ('A' - 'Z') because already converted to uppercase
             if (charValue >= 65 .and. charValue <= 90) then
                 ! Perform the unshift by the given amount
-                charValue = charValue - shiftAmount
+                charValue = charValue - newShift
 
                 ! diff is how much under the charater is relative to 'A' (65)
                 diff = 65 - charValue
 
                 ! If it went under, wraparound is needed
-	            if (diff > 0) then
+                if (diff > 0) then
                     ! Finish the wraparound by subtracting the diff from 'Z' (90)
                     ! The +1 is needed because a diff of 1 means that the character is 1 beyond 'A', which will be 'Z'
                     charValue = 90 - diff + 1
-	            endif
+                else
+                    ! diff is how much over the charater is relative to 'Z' (90)
+                    diff = charValue - 90
+
+                    ! If it went over, wraparound is needed
+                    if (diff > 0) then
+                        ! Finish the wraparound by adding the diff to 'A' (65)
+                        ! The -1 is needed because a diff of 1 means that the character is 1 beyond 'Z', which will be 'A'
+                        charValue = 65 + diff - 1
+                    endif
+                endif
 
                 ! Update the output string at the index with the new character value
                 ! If the character was not originally a letter, then no change is needed, which is why this is inside of the if block
                 outputString(index:index) = char(charValue)
-	        endif
+            endif
         enddo
     end subroutine decrypt
 
@@ -149,13 +177,13 @@ contains
         ! outputString is a temporary variable that will be used as the result from each solve attempt
         character(stringLength) :: outputString
 
-        ! shigtAmount is the current amount being shifted
+        ! shiftAmount is the current amount being shifted
         integer :: shiftAmount
 
         ! Try all shift amounts from the max down to 0
         do shiftAmount = maxShiftValue, 0, -1
-            ! Call the encrypt subroutine with the current shiftAmount and store in outputString
-            call encrypt(inputString, stringLength, shiftAmount, outputString)
+            ! Call the decrypt subroutine with the current shiftAmount and store in outputString
+            call decrypt(inputString, stringLength, -shiftAmount, outputString)
 
             ! Print out the results
             ! Formatting strings found at the link below
