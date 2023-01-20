@@ -11,11 +11,11 @@ program caesar
     original = 'This is a test string from Alan'
 
     ! Call encrypt on the original string with a shift of 8
-    call encrypt(original, 31, -27, encryptOutput)
+    call encrypt(original, 31, 8, encryptOutput)
     print *, encryptOutput
 
     ! Decrypt the encrypted value with the shift of 8
-    call decrypt(encryptOutput, 31, -27, decryptOutput)
+    call decrypt(encryptOutput, 31, 8, decryptOutput)
     print *, decryptOutput
 
     ! Call the solve subroutine
@@ -133,26 +133,26 @@ contains
 
             ! Make sure the character is a letter ('A' - 'Z') because already converted to uppercase
             if (charValue >= 65 .and. charValue <= 90) then
-                ! Perform the unshift by the given amount
+                ! Perform the shift by the given amount
                 charValue = charValue - newShift
 
-                ! diff is how much under the charater is relative to 'A' (65)
-                diff = 65 - charValue
+                ! diff is how much over the charater is relative to 'Z' (90)
+                diff = charValue - 90
 
-                ! If it went under, wraparound is needed
+                ! If it went over, wraparound is needed
                 if (diff > 0) then
-                    ! Finish the wraparound by subtracting the diff from 'Z' (90)
-                    ! The +1 is needed because a diff of 1 means that the character is 1 beyond 'A', which will be 'Z'
-                    charValue = 90 - diff + 1
+                    ! Finish the wraparound by adding the diff to 'A' (65)
+                    ! The -1 is needed because a diff of 1 means that the character is 1 beyond 'Z', which will be 'A'
+                    charValue = 65 + diff - 1
                 else
-                    ! diff is how much over the charater is relative to 'Z' (90)
-                    diff = charValue - 90
+                    ! diff is how much under the charater is relative to 'A' (65)
+                    diff = 65 - charValue
 
-                    ! If it went over, wraparound is needed
+                    ! If it went under, wraparound is needed
                     if (diff > 0) then
-                        ! Finish the wraparound by adding the diff to 'A' (65)
-                        ! The -1 is needed because a diff of 1 means that the character is 1 beyond 'Z', which will be 'A'
-                        charValue = 65 + diff - 1
+                        ! Finish the wraparound by subtracting the diff from 'Z' (90)
+                        ! The +1 is needed because a diff of 1 means that the character is 1 beyond 'A', which will be 'Z'
+                        charValue = 90 - diff + 1
                     endif
                 endif
 
@@ -180,8 +180,14 @@ contains
         ! shiftAmount is the current amount being shifted
         integer :: shiftAmount
 
+        ! Make sure 0 <= shiftAmount <= 26
+        shiftAmount = abs(maxShiftValue)
+        if (shiftAmount > 26) then
+            shiftAmount = mod(shiftAmount, 26)
+        endif
+        
         ! Try all shift amounts from the max down to 0
-        do shiftAmount = maxShiftValue, 0, -1
+        do shiftAmount = shiftAmount, 0, -1
             ! Call the decrypt subroutine with the current shiftAmount and store in outputString
             call decrypt(inputString, stringLength, -shiftAmount, outputString)
 

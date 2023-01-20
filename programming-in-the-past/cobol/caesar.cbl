@@ -146,19 +146,22 @@
 000317   returning res.
 000318   Move 0 to res
 *******  Get the absolute value for the shift amount to make sure it is positive
-*******  In the end, -26 will be the same as +26
+*******  In the end, -26 will be the same as +26, and 27 will be the same as 1
 000319   move function abs(maxShiftAmt) to shiftAmt
+000320   if (shiftAmt > 26) then
+000320     compute shiftAmt = function mod(shiftAmt 26)
+000321   end-if
 *******  Repeat for all possible shift amounts
-000320   perform solve-work until shiftAmt < 0
-000321   goback.
-000322   solve-work.
+000322   perform solve-work until shiftAmt < 0
+000323   goback.
+000324   solve-work.
 *******    Negate the shift amount
-000323     compute realShiftAmt = shiftAmt * -1
+000325     compute realShiftAmt = shiftAmt * -1
 *******    Try to decrypt the string and display the result
-000324     move function decrypt(inStr realShiftAmt) to outputStr
-000325     display "Caesar " shiftAmt ": " outputStr
-000326     subtract 1 from shiftAmt.
-000327 End function solve.
+000326     move function decrypt(inStr realShiftAmt) to outputStr
+000327     display "Caesar " shiftAmt ": " outputStr
+000328     subtract 1 from shiftAmt.
+000329 End function solve.
 000000 Identification division.
 000001   Program-id. caesar.
 000002 Environment division.
@@ -174,7 +177,7 @@
 000012     1 encryptRes pic x(32).
 000013     1 decryptRes pic x(32).
 000014     1 solveStr pic x(32) value "HAL".
-000015     1 solveShift pic S999 value 26.
+000015     1 solveShift pic S999 value -26.
 000016 Procedure division.
 000017   Move encrypt(inStr shift) to encryptRes
 000018   display encryptRes
