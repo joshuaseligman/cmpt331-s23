@@ -20,7 +20,7 @@
 129 rem Call solve with the given variables
 130 gosub 3000
 140 end
-1000 goto 1010
+1000 rem Encrypt subroutine
 1009 rem Encrypt output starts off as an uppercase version of the input
 1010 encryptoutput$ = ucase$(encryptinput$)
 1019 rem Shift amount should be between -25 and 25
@@ -50,7 +50,7 @@
 1170 endif
 1180 next index%
 1190 return
-2000 goto 2010
+2000 rem Decrypt subroutine
 2009 rem Decrypt output starts off as an uppercase version of the input
 2010 decryptoutput$ = ucase$(decryptinput$)
 2019 rem Shift amount should be between -25 and 25
@@ -80,7 +80,7 @@
 2170 endif
 2180 next index%
 2190 return
-3000 goto 3010
+3000 rem Solve subroutine
 3009 rem Only need positive shift amounts
 3010 realShift% = abs(shiftAmount%)
 3020 if realShift% > 26 then
