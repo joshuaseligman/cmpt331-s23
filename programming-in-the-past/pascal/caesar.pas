@@ -65,14 +65,28 @@ begin
     end;
 end;
 
+procedure solve(inputString : string; maxShiftAmount : integer);
 var
-    originalString : string;
-    encryptOut : string;
-    decryptOut : string;
+    idx: integer;
+begin
+    maxShiftAmount := abs(maxShiftAmount);
+    if maxShiftAmount > 26 then
+        maxShiftAmount := maxShiftAmount mod 26;
+
+    for idx := maxShiftAmount downto 0 do
+        writeln('Caesar ', idx, ': ', Decrypt(inputString, -idx));
+end;
+
+var
+    originalString: string;
+    encryptOut: string;
+    decryptOut: string;
+    test: integer;
 begin
     originalString := 'This is a test string from Alan';
     encryptOut := Encrypt(originalString, 8);
     decryptOut := Decrypt(encryptOut, 8);
     writeln(encryptOut);
     writeln(decryptOut);
+    solve('HAL', test);
 end.
