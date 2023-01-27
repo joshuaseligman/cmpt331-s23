@@ -3,3 +3,6 @@
 caesar
 .vscode/
 *.o
+*.class
+*.tasty
+.metals/

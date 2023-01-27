@@ -14,25 +14,25 @@ object Caesar {
 
             // Convert to uppercase
             if (charVal >= 97 && charVal <= 122) {
-                charVal -= 32;
+                charVal -= 32
             }
 
             // Only have to do work if it is uppercase ('A' - 'Z')
             if (charVal >= 65 && charVal <= 90) {
                 // Compute the shift
-                charVal += realShift;
+                charVal += realShift
 
                 // Check for wraparound on the 'Z' end
-                var diff: Int = charVal - 90;
+                var diff: Int = charVal - 90
                 if (diff > 0) {
                     // Perform the wraparound
-                    charVal = 65 + diff - 1;
+                    charVal = 65 + diff - 1
                 } else {
                     // Check for wraparound on the 'A' end
-                    diff = 65 - charVal;
+                    diff = 65 - charVal
                     if (diff > 0) {
                         // Perform the wraparound
-                        charVal = 90 - diff + 1;
+                        charVal = 90 - diff + 1
                     }
                 }
             }
@@ -59,25 +59,25 @@ object Caesar {
 
             // Convert to uppercase
             if (charVal >= 97 && charVal <= 122) {
-                charVal -= 32;
+                charVal -= 32
             }
 
             // Only have to do work if it is uppercase ('A' - 'Z')
             if (charVal >= 65 && charVal <= 90) {
                 // Compute the shift
-                charVal -= realShift;
+                charVal -= realShift
 
                 // Check for wraparound on the 'Z' end
-                var diff: Int = charVal - 90;
+                var diff: Int = charVal - 90
                 if (diff > 0) {
                     // Perform the wraparound
-                    charVal = 65 + diff - 1;
+                    charVal = 65 + diff - 1
                 } else {
                     // Check for wraparound on the 'A' end
-                    diff = 65 - charVal;
+                    diff = 65 - charVal
                     if (diff > 0) {
                         // Perform the wraparound
-                        charVal = 90 - diff + 1;
+                        charVal = 90 - diff + 1
                     }
                 }
             }
