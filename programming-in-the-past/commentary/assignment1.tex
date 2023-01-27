@@ -56,7 +56,10 @@ I am predicting that it will take me around \textbf{20 hours (average of 4 hours
 		\hline
 		January 20 & 1.5 hours & I finished writing the Caesar cipher in COBOL and dealt with more of COBOL's small nuances that did not provide error messages or warnings. Luckily, it did not take me nearly as long to find the issues today as it did for me yesterday. \\
 		\hline
-		January 21 & 1.5 hours & I wrote Caesar cipher in BASIC without much trouble.
+		January 21 & 1.5 hours & I wrote the Caesar cipher in BASIC without much trouble.
+		\\
+		\hline
+		January 26 & 0.75 hours & I wrote the Caesar cipher in Pascal with even less trouble than BASIC.
 		\\
 		\hline
 	\end{tabular}
@@ -139,6 +142,21 @@ Overall, the nice syntax of BASIC made it much easier to both read and write cod
 \end{itemize}
 
 \subsection{Pascal}
+\subsubsection{My Thoughts}
+My experience in Pascal was overall really good and I genuinely have very little to complain about. I found the code to be a great example of elegant simplicity. Pascal contained all of the basic programming constructs, including some of the more modern ones, while being less verbose than the other programming languages so far.
+\\ \\
+First, Pascal's clean and simple grammar made it both really easy to read and write the code. Some of the issues in languages like Fortran and COBOL was that they required all variables to be declared at the top of functions. Fortran did not have anything to separate these declarations and the actual program, and COBOL was extremely detailed and also did not exactly line up with the actual execution of the program. Although Pascal requires also variables to be declared at the top of functions, it has 2 very clean sections to do so, `const` for constants and `var` for everything else. The inclusion of these sections makes the code more readable as it is self-documenting within the sections as well as extremely writable as I was able to write a lot less code to do the same thing as COBOL. Another part of the language's grammar that is unique relative to the languages used so far is the walrus assignment operator (:=). Rather than using the single equal sign (=) for assignment, Pascal uses the walrus operator, which increases readability as there is no confusion between assignments and comparisons and only comes at the cost of one additional character being typed, which is a miniscule cost relative to ease of which one can understand the code.
+\\ \\
+Another feature that I really appreciated was how functions deal with return variables. In most other programming languages, you can return from any point in a function as well as have multiple return points. In Pascal, however, the returned variable takes the same name as the function and automatically gets returned at the end of the function. This design pattern upholds the idea of functions being one-way in and one-way out and makes the code extremely easy to understand and follow. I do, however, wish that the returned variable had a built-in name that was not the same name as the function as recursive functions may be hard to read because you can have multiple instances of the same name in a single line of code that both mean completely different things. Despite this small complaint from me, the improved design pattern carries a much larger weight than the name of a variable and, therefore, functions are much more readable and writable than most other programming languages today.
+\\ \\
+Overall, my experience using Pascal to write a Caesar cipher was really enjoyable due to its simple, yet feature-filled, grammar that made the code really easy to both read and write. I wish the language was more popular today because I found my experience to be better than some more modern languages that are widely used throughout the world.
+
+\subsubsection{Google Search History}
+\begin{itemize}
+	\item pascal hello world
+	\item pascal function multiple parameters
+	\item and operator pascal boolean expression
+\end{itemize}
 
 \subsection{Procedural Scala}
 
