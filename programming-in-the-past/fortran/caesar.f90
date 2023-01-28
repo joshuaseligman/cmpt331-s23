@@ -7,8 +7,12 @@ program caesar
     character(31) :: original
     character(31) :: encryptOutput
     character(31) :: decryptOutput
+    character(31) :: emptyString
+    character(31) :: noLetters
 
     original = 'This is a test string from Alan'
+    emptyString = ''
+    noLetters = '1234567890!@#$%^&*(){}'
 
     print *, 'Alan tests:'
 
@@ -36,6 +40,18 @@ program caesar
     call encrypt(original, 31, 27, encryptOutput)
     print *, encryptOutput
     call decrypt(encryptOutput, 31, 27, decryptOutput)
+    print *, decryptOutput
+
+    ! Test empty string
+    call encrypt(emptyString, 31, 7, encryptOutput)
+    print *, encryptOutput
+    call decrypt(encryptOutput, 31, 7, decryptOutput)
+    print *, decryptOutput
+
+    ! Make sure string stays the same
+    call encrypt(noLetters, 31, 7, encryptOutput)
+    print *, encryptOutput
+    call decrypt(encryptOutput, 31, 7, decryptOutput)
     print *, decryptOutput
 
     print *, ''

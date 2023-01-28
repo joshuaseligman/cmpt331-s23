@@ -178,35 +178,48 @@
 000013     1 decryptRes pic x(32).
 000014     1 solveStr pic x(32) value "HAL".
 000015     1 solveShift pic S999 value 26.
-000016 Procedure division.
-000017   display "Alan tests:"
-000018   Move encrypt(inStr shift) to encryptRes
-000019   display encryptRes
-000020   move decrypt(encryptRes shift) to decryptRes
-000021   display decryptRes
-000022   display solve(solveStr solveShift)
-000023   display " "
-000024   display "Encrypt and decrypt tests:"
+000016     1 emptyStr pic x(32) value " ".
+000017     1 noLetters pic x(32) value "1234567890!@#$%^&*(){}".
+000018 Procedure division.
+000019   display "Alan tests:"
+000020   Move encrypt(inStr shift) to encryptRes
+000021   display encryptRes
+000022   move decrypt(encryptRes shift) to decryptRes
+000023   display decryptRes
+000024   display solve(solveStr solveShift)
+000025   display " "
+000026   display "Encrypt and decrypt tests:"
 *******  Test negative shifts
-000025   move -1 to shift
-000026   Move encrypt(inStr shift) to encryptRes
-000027   display encryptRes
-000028   move decrypt(encryptRes shift) to decryptRes
-000029   display decryptRes
+000027   move -1 to shift
+000028   Move encrypt(inStr shift) to encryptRes
+000029   display encryptRes
+000030   move decrypt(encryptRes shift) to decryptRes
+000031   display decryptRes
 *******  Test modulus
-000030   move 27 to shift
-000031   Move encrypt(inStr shift) to encryptRes
-000032   display encryptRes
-000033   move decrypt(encryptRes shift) to decryptRes
-000034   display decryptRes
-000035   display " "
-000036   display "Solve tests:"
+000032   move 27 to shift
+000033   Move encrypt(inStr shift) to encryptRes
+000034   display encryptRes
+000035   move decrypt(encryptRes shift) to decryptRes
+000036   display decryptRes
+*******  Test empty string
+000037   move 7 to shift
+000038   Move encrypt(emptyStr shift) to encryptRes
+000039   display encryptRes
+000040   move decrypt(encryptRes shift) to decryptRes
+000041   display decryptRes
+*******  Test no letters
+000042   Move encrypt(noLetters shift) to encryptRes
+000043   display encryptRes
+000044   move decrypt(encryptRes shift) to decryptRes
+000045   display decryptRes
+000046   display " "
+000047   display "Solve tests:"
 *******  Test absolute value
-000037   move -26 to solveShift
-000038   display solve(solveStr solveShift)
-000039   display " "
+000048   move -26 to solveShift
+000049   display solve(solveStr solveShift)
+000050   display " "
 *******  Test modulus
-000040   move 30 to solveShift
-000041   display solve(solveStr solveShift)
-000042   goback.
-000043 End program caesar.
+000051   move 30 to solveShift
+000052   display solve(solveStr solveShift)
+000053   goback.
+000054 End program caesar.

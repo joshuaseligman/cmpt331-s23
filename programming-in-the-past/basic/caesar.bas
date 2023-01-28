@@ -36,15 +36,30 @@
 260 decryptinput$ = encryptoutput$
 270 gosub 2000
 280 print decryptoutput$
-290 print ""
-300 print "Solve tests:"
-309 rem Test the absolute value
-310 shiftAmount% = -26
-320 gosub 3000
-330 print ""
-339 rem Test modulus
-340 shiftAmount% = 30
-350 gosub 3000
+289 rem Test empty string
+290 encryptinput$ = ""
+300 shiftAmount% = 7
+310 gosub 1000
+320 print encryptoutput$
+330 decryptinput$ = encryptoutput$
+340 gosub 2000
+350 print decryptoutput$
+359 rem Test no letters
+360 encryptinput$ = "1234567890!@#$%^&*(){}"
+370 gosub 1000
+380 print encryptoutput$
+390 decryptinput$ = encryptoutput$
+400 gosub 2000
+410 print decryptoutput$
+420 print ""
+430 print "Solve tests:"
+439 rem Test the absolute value
+440 shiftAmount% = -26
+450 gosub 3000
+460 print ""
+469 rem Test modulus
+470 shiftAmount% = 30
+480 gosub 3000
 999 end
 1000 rem Encrypt subroutine
 1009 rem Encrypt output starts off as an uppercase version of the input

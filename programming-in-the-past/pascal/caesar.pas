@@ -142,6 +142,16 @@ begin
     decryptOut := Decrypt(encryptOut, 27);
     writeln(encryptOut);
     writeln(decryptOut);
+    (* Test empty string *)
+    encryptOut := Encrypt('', 7);
+    decryptOut := Decrypt(encryptOut, 7);
+    writeln(encryptOut);
+    writeln(decryptOut);
+    (* Test no letters *)
+    encryptOut := Encrypt('1234567890!@#$%^&*(){}', 7);
+    decryptOut := Decrypt(encryptOut, 7);
+    writeln(encryptOut);
+    writeln(decryptOut);
 
     writeln();
     writeln('Solve tests:');
