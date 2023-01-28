@@ -105,10 +105,32 @@ object Caesar {
     }
 
     def main(args: Array[String]) = {
-        val encryptOut: String = encrypt("This is a test string from Alan", -18)
+        println("Alan tests:")
+        var encryptOut: String = encrypt("This is a test string from Alan", 8)
         println(encryptOut)
-        val decryptOut: String = decrypt(encryptOut, -18)
+        var decryptOut: String = decrypt(encryptOut, 8)
         println(decryptOut)
         solve("HAL", 26)
+
+        println("\nEncrypt and decrypt tests:")
+        // Test negative shift amount
+        encryptOut = encrypt("This is a test string from Alan", -1)
+        println(encryptOut)
+        decryptOut = decrypt(encryptOut, -1)
+        println(decryptOut)
+
+        // Test modulus
+        encryptOut = encrypt("This is a test string from Alan", 27)
+        println(encryptOut)
+        decryptOut = decrypt(encryptOut, 27)
+        println(decryptOut)
+
+        println("\nSolve tests:")
+        // Test absolute value
+        solve("HAL", -26)
+        println()
+        // Test modulus
+        solve("HAL", 30)
+
     }
 }

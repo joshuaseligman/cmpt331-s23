@@ -123,9 +123,31 @@ var
     decryptOut: string; (* The output of decrypt *)
 begin
     originalString := 'This is a test string from Alan';
+    writeln('Alan tests:');
     encryptOut := Encrypt(originalString, 8);
     decryptOut := Decrypt(encryptOut, 8);
     writeln(encryptOut);
     writeln(decryptOut);
     solve('HAL', 26);
+    
+    writeln();
+    writeln('Encrypt and decrypt tests:');
+    (* Test negative shift *)
+    encryptOut := Encrypt(originalString, -1);
+    decryptOut := Decrypt(encryptOut, -1);
+    writeln(encryptOut);
+    writeln(decryptOut);
+    (* Test modulus *)
+    encryptOut := Encrypt(originalString, 27);
+    decryptOut := Decrypt(encryptOut, 27);
+    writeln(encryptOut);
+    writeln(decryptOut);
+
+    writeln();
+    writeln('Solve tests:');
+    (* Test absolute value *)
+    solve('HAL', -26);
+    writeln();
+    (* Test modulus *)
+    solve('HAL', 30);
 end.

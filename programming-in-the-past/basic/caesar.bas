@@ -6,20 +6,46 @@
 40 decryptoutput$ = ""
 49 rem Define the shift amount for encrypt and decrypt
 50 shiftamount% = 8
-59 rem Call the encrypt subroutine and print the output
-60 gosub 1000
-70 print encryptoutput$
-79 rem Set the decrypt input to be what the encrypt output was
-80 decryptinput$ = encryptoutput$
-89 rem Call decrypt with the same shift amount as encrypt
-90 gosub 2000
-100 print decryptoutput$
-109 rem Set the solve variables for the string and the amount
-110 solveInput$ = "HAL"
-120 shiftAmount% = 26
-129 rem Call solve with the given variables
-130 gosub 3000
-140 end
+60 print "Alan tests:"
+69 rem Call the encrypt subroutine and print the output
+70 gosub 1000
+80 print encryptoutput$
+89 rem Set the decrypt input to be what the encrypt output was
+90 decryptinput$ = encryptoutput$
+99 rem Call decrypt with the same shift amount as encrypt
+100 gosub 2000
+110 print decryptoutput$
+119 rem Set the solve variables for the string and the amount
+120 solveInput$ = "HAL"
+130 shiftAmount% = 26
+139 rem Call solve with the given variables
+140 gosub 3000
+150 print ""
+160 print "Encrypt and decrypt tests:"
+169 rem Test the negative shift amount
+170 shiftAmount% = -1
+180 gosub 1000
+190 print encryptoutput$
+200 decryptinput$ = encryptoutput$
+210 gosub 2000
+220 print decryptoutput$
+229 rem Test modulus
+230 shiftAmount% = 27
+240 gosub 1000
+250 print encryptoutput$
+260 decryptinput$ = encryptoutput$
+270 gosub 2000
+280 print decryptoutput$
+290 print ""
+300 print "Solve tests:"
+309 rem Test the absolute value
+310 shiftAmount% = -26
+320 gosub 3000
+330 print ""
+339 rem Test modulus
+340 shiftAmount% = 30
+350 gosub 3000
+999 end
 1000 rem Encrypt subroutine
 1009 rem Encrypt output starts off as an uppercase version of the input
 1010 encryptoutput$ = ucase$(encryptinput$)

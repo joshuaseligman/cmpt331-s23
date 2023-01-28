@@ -173,16 +173,40 @@
 000008 Data division.
 000009   Working-storage section.
 000010     1 inStr pic x(32) value "This is a test string from Alan".
-000011     1 shift pic S999 value -27.
+000011     1 shift pic S999 value 8.
 000012     1 encryptRes pic x(32).
 000013     1 decryptRes pic x(32).
 000014     1 solveStr pic x(32) value "HAL".
-000015     1 solveShift pic S999 value -26.
+000015     1 solveShift pic S999 value 26.
 000016 Procedure division.
-000017   Move encrypt(inStr shift) to encryptRes
-000018   display encryptRes
-000019   move decrypt(encryptRes shift) to decryptRes
-000020   display decryptRes
-000021   display solve(solveStr solveShift)
-000022   goback.
-000023 End program caesar.
+000017   display "Alan tests:"
+000018   Move encrypt(inStr shift) to encryptRes
+000019   display encryptRes
+000020   move decrypt(encryptRes shift) to decryptRes
+000021   display decryptRes
+000022   display solve(solveStr solveShift)
+000023   display " "
+000024   display "Encrypt and decrypt tests:"
+*******  Test negative shifts
+000025   move -1 to shift
+000026   Move encrypt(inStr shift) to encryptRes
+000027   display encryptRes
+000028   move decrypt(encryptRes shift) to decryptRes
+000029   display decryptRes
+*******  Test modulus
+000030   move 27 to shift
+000031   Move encrypt(inStr shift) to encryptRes
+000032   display encryptRes
+000033   move decrypt(encryptRes shift) to decryptRes
+000034   display decryptRes
+000035   display " "
+000036   display "Solve tests:"
+*******  Test absolute value
+000037   move -26 to solveShift
+000038   display solve(solveStr solveShift)
+000039   display " "
+*******  Test modulus
+000040   move 30 to solveShift
+000041   display solve(solveStr solveShift)
+000042   goback.
+000043 End program caesar.

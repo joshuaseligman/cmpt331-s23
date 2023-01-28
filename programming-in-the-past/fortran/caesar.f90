@@ -10,6 +10,8 @@ program caesar
 
     original = 'This is a test string from Alan'
 
+    print *, 'Alan tests:'
+
     ! Call encrypt on the original string with a shift of 8
     call encrypt(original, 31, 8, encryptOutput)
     print *, encryptOutput
@@ -20,6 +22,29 @@ program caesar
 
     ! Call the solve subroutine
     call solve('HAL', 3, 26)
+
+    print *, ''
+    print *, 'Encrypt and decrypt tests:'
+
+    ! Test going back one character
+    call encrypt(original, 31, -1, encryptOutput)
+    print *, encryptOutput
+    call decrypt(encryptOutput, 31, -1, decryptOutput)
+    print *, decryptOutput
+
+    ! Test the modulus operator to go forward 1
+    call encrypt(original, 31, 27, encryptOutput)
+    print *, encryptOutput
+    call decrypt(encryptOutput, 31, 27, decryptOutput)
+    print *, decryptOutput
+
+    print *, ''
+    print *, 'Solve tests:'
+    ! Test absolute value
+    call solve('HAL', 3, -26)
+    print *, ''
+    ! Test modulus
+    call solve('HAL', 3, 30)
     
 contains
 
