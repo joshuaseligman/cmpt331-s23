@@ -125,6 +125,18 @@ object Caesar {
         decryptOut = decrypt(encryptOut, 27)
         println(decryptOut)
 
+        // Test empty string
+        encryptOut = encrypt("", 27)
+        println(encryptOut)
+        decryptOut = decrypt(encryptOut, 27)
+        println(decryptOut)
+
+        // Test no letters
+        encryptOut = encrypt("1234567890!@#$%^&*(){}", 27)
+        println(encryptOut)
+        decryptOut = decrypt(encryptOut, 27)
+        println(decryptOut)
+
         println("\nSolve tests:")
         // Test absolute value
         solve("HAL", -26)
