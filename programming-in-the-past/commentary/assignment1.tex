@@ -4,6 +4,7 @@
 \usepackage{amsmath, amsfonts, amsthm, xfrac}
 \usepackage{listings}
 \usepackage{color}
+\usepackage{longtable}
 
 \numberwithin{equation}{section}
 \numberwithin{figure}{section}
@@ -23,6 +24,23 @@
 \renewcommand{\headrulewidth}{0pt} % Remove header underlines
 \renewcommand{\footrulewidth}{0pt} % Remove footer underlines
 \setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\lstset{numbers=left, numberstyle=\tiny, stepnumber=1, numbersep=5pt}
+
+% Colors and lstset for syntax highlighting from https://www.overleaf.com/latex/examples/syntax-highlighting-in-latex-with-the-listings-package/jxnppmxxvsvk
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\lstset{
+  backgroundcolor=\color{white},   % choose the background color
+  basicstyle=\footnotesize,        % size of fonts used for the code
+  breaklines=true,                 % automatic line breaking only at whitespace
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  escapeinside={\%*}{*},          % if you want to add LaTeX within your code
+  keywordstyle=\color{blue},       % keyword style
+  stringstyle=\color{mymauve},     % string literal style
+}
 
 \setlength\parindent{0pt}
 \pagenumbering{gobble}
@@ -46,12 +64,12 @@ I am predicting that it will take me around \textbf{20 hours (average of 4 hours
 
 \subsection{Progress Log}
 \begin{center}
-	\begin{tabular}{|p{1in}|p{1in}|p{4in}|}
+	\begin{longtable}{|p{1in}|p{1in}|p{4in}|}
 		\hline
 		Date & Hours Spent & Tasks / Accomplishments / Issues / Thoughts
 		\\
 		\hline
-		January 18 & 3 hours & I built the entire Caesar cipher in Fortran, which was a bit frustrating but not the worst thing in the world.
+		January 18 & 3 hours & I built the entire Caesar cipher in Fortran, which was a bit frustrating but not the worst thing in the world. The language had some weird quirks, but was doable considering that it only took me a few hours.
 		\\
 		\hline
 		January 19 & 3 hours & I started working on the Caesar cipher in COBOL. This has been exponentially more difficult than Fortran as some of the language's tiny details made me stare at a computer screen for hours without any resources because there were no error messages or warnings.
@@ -62,20 +80,20 @@ I am predicting that it will take me around \textbf{20 hours (average of 4 hours
 		January 20 & 1.5 hours & I finished writing the Caesar cipher in COBOL and dealt with more of COBOL's small nuances that did not provide error messages or warnings. Luckily, it did not take me nearly as long to find the issues today as it did for me yesterday.
 		\\
 		\hline
-		January 21 & 1.5 hours & I wrote the Caesar cipher in BASIC without much trouble.
+		January 21 & 1.5 hours & I wrote the Caesar cipher in BASIC without much trouble. The code was quite simple, and I enjoyed my time writing the BASIC program.
 		\\
 		\hline
-		January 26 & 0.75 hours & I wrote the Caesar cipher in Pascal with even less trouble than BASIC.
+		January 26 & 0.75 hours & I wrote the Caesar cipher in Pascal with even less trouble than BASIC. I was genuinely surprised by how quickly I completed the Caesar cipher in Pascal and found the language to be really nice and better than some modern languages.
 		\\
 		\hline
-		January 27 & 0.75 hours & I wrote the Caesar cipher in Scala, which was unsurprisingly almost identical to how it would have been written in Java.
+		January 27 & 0.75 hours & I wrote the Caesar cipher in Scala, which was unsurprisingly almost identical to how it would have been written in Java. Scala was a bit frustrating at times because of its quirks to try to simplify Java, but its tooling made my experience better compared to some of the older languages.
 		\\
 		\hline
-	\end{tabular}
+	\end{longtable}
 \end{center}
 
 \subsection{Final Results and Analysis}
-Overall, this assignment took me 10.75 hours to complete, which is about half the time I initially expected. Although I was on pace for 20 hours after Fortran and COBOL, the time required for me to write the Caesar cipher in BASIC, Pascal, and Scala was much shorter than originally anticipated. I initially predicted about 20 hours because I did not know what to expect from the older programming languages and was unsure how long it would take for me to learn enough of each language to put together the respective programs. Furthermore, the results from Google searches were much more detailed and useful for the last 3 languages because they are not as old and have some good online resources that demonstrate the basics of the languages. Also, since they are newer, BASIC, Pascal, and Scala all have grammars that are much closer to other popular programming languages today, so more similarities were able to be recognized and taken advantage of. On the other hand, since there is no language today like COBOL, it is in a league of its own and had to be figured out in its entirety with no assumptions of similarities to other languages. Lastly, as described in my prediction, I wanted the solutions to be as close to each other as possible. Thus, I did not try to do anything crazy with the solutions and kept it simple throughout. Thus, once I wrote the Caesar cipher in Fortran, the assignment became a task of trying to translate the Fortran code into other languages rather than trying to create a new solution from scratch 5 times.
+Overall, this assignment took me 10.75 hours to complete, which is about half the time I initially expected. Although I was on pace for 20 hours after Fortran and COBOL, the time required for me to write the Caesar cipher in BASIC, Pascal, and Scala was much shorter than originally anticipated. I initially predicted about 20 hours because I did not know what to expect from the older programming languages and was unsure how long it would take for me to learn enough of each language to put together the respective programs. Furthermore, the results from Google searches were much more detailed and useful for the last 3 languages because they are not as old and have some good online resources that demonstrate the basics of the languages. Also, since they are newer, BASIC, Pascal, and Scala all have grammars that are much closer to other popular programming languages today, so more similarities were able to be recognized and taken advantage of. On the other hand, since there is no language today like COBOL, it is in a league of its own and had to be figured out in its entirety with no assumptions of similarities to other languages. Lastly, as described in my prediction, I wanted the solutions to be as close to each other as possible. Thus, I did not try to do anything crazy with the solutions and kept it simple throughout. In other words, once I wrote the Caesar cipher in Fortran, the assignment became a task of trying to translate the Fortran code into other languages rather than trying to create a new solution from scratch 5 times.
 
 \section{Commentary}
 \subsection{Fortran}
@@ -102,121 +120,7 @@ Overall, aside from the variables being declared up top, Fortran is quite a clea
 	\item fortran mod
 \end{itemize}
 
-
-\subsection{COBOL}
-\subsubsection{My Thoughts}
-Based on my experience with writing the Caesar cipher in COBOL, I have determined that it is not a user-friendly programming language in the slightest of ways. COBOL is extremely readable and self-documenting as every operation and section is explicitly defined by the programmer. This is the only decent thing going for it as the rest of my experience was dreadful due to its poor implicit type conversions and its lack of stack frames for functions.
-\\ \\
-First, the implicit type conversions for passing in parameters to functions was a nightmare to deal with by itself. In each function, all variables are defined with their types, and numeric types need to state the number of digits the variable will take up. However, oftentimes as a programmer you want to pass in a raw number to a function as the number will not be used anywhere else, so storing it in a variable would not be very useful. However, COBOL does not interpret these values well against defined types. For instance, an unsigned integer parameter that needs to store 2 digits must take in a number like "08" and not just "8." The main problem here is that the compiler does not say anything is wrong with the input. Instead, it can print out that it has an "8," but all mathematical operations with the value will be completely off. The same goes with signed numbers as well, but they basically do not even work as "-001" in a 3-digit signed integer comes back as "-00" and the "1" is missing, not to mention wild math results as well. Unfortunately, the only way to really deal with parameters is to pass in a variable that has the value you want to pass in. This ensures type safety as an "8" will be the same as "08," which contradicts the problems stated before. It almost reminds me of truthy and falsy values in JavaScript as you sometimes cannot tell what the output will be because the compiler just does its own thing without telling you what it is going to do.
-\\ \\
-Another serious issue that I faced was the lack of stack frames with function calls. In my experiences with many other programming languages, they all seem to use stack frames for function calls. That is, any variable defined in a function exists for no longer than the duration of the function. This means that the next time the function is called, the variable will be reinitialized with its starting value every time. Unfortunately, this is not the case for COBOL. Based on what I am able to tell, all variables defined in data divisions exist for the entirety of the program's lifespan. Therefore, the state of the variables for a function will be preserved across multiple function calls. COBOL lets you initialize variables in the data division with a value, but it is basically useless for functions that need to make sure that the variables get reset at the start of the function call anyway. This is another example of COBOL making itself really difficult to use because it provides functionality for features that do not make sense, at least relative to today's standards and paradigms.
-\\ \\
-Writing my Caesar cipher in COBOL was by far one of the most challenging things I have done as a programmer. In fact, COBOL's poor writability made Fortran look good, which demonstrates how bad my COBOL experience was because I did not originally think highly of Fortran. Although COBOL's code is self-documenting, it was nothing that could not be done with comments in Fortran and could not make up for the excruciatingly difficult task of writing COBOL code.
-
-\subsubsection{Google Search History}
-\begin{itemize}
-	\item cobol hello world
-	\item cobol column rules
-	\item functions in cobol
-	\item user-defined functions in cobol
-	\item data types in cobol
-	\item iterate through characters in a string cobol
-	\item string copy cobol
-	\item cobol function with both linkage section and working storage
-	\item convert character to ascii code cobol
-	\item get character from ordinal value cobol
-	\item cobol addition is not right
-	\item negative numbers in cobol
-	\item string length cobol
-	\item working storage section variables are not wiped after a function call and their state persists between function calls
-\end{itemize}
-
-\subsection{BASIC}
-\subsubsection{My Thoughts}
-BASIC, as implied by its name, is a very simple programming language that, at times, felt too orthogonal due to its lack of key features that are included in almost every other programming language. Despite these flaws, my experience writing the Caesar cipher in BASIC was much better than that for Fortran and COBOL.
-\\ \\
-User-defined program structure in BASIC was nice and flexible, but prevented any form of documentation. In BASIC, every line of code is preceded with a number that represents which line in the program the code should be inserted into. Although it was annoying to micromanage the code and make sure every line number was consistent, I did not mind this too much because I enjoy seeing these lower-level details. I was also thankful for a text editor because I know I would have struggled had I manually entered each line into an Apple II computer and rewrote the lines if I ran out of space or wanted to clean up the code organization. For subroutines, I used the practice of every 1000 lines was a new subroutine (i.e., encrypt started on line 1000, decrypt started on line 2000, and solve started on line 3000). I personally thought this was really cool because I was able to explicitly define how I wanted my code to be organized. However, calling these subroutines was through the line number, so the code was not self-documenting and comments were needed to label which subroutine was being called in each instance. This was really unfortunate as the rest of BASIC's syntax is extremely readable and self-documenting.
-\\ \\
-Similar to the code organization, I had mixed feelings about the simplicity of variables in BASIC. I really liked how all identifiers had to end with either a '\%' to show it is a number or a '\$' to show that it is a string. This was really nice because variable declaration was simple as the data type is implied with the name and there was never a question of a variable's type when writing the program because it is self-documented in its name. Despite this really nice syntax, BASIC provides no variable checking at runtime. For instance, if you omit the '\%' or '\$' or misspell a variable, the BASIC interpreter assumes that you are trying to reference a new variable. Thus, it creates a new variable and initializes it to 0 without telling you. When writing my Caesar cipher, this "feature" screwed up program execution, and it was very difficult to debug since there were no warnings or error messages.
-\\ \\
-Aside from some of these minor issues I had with BASIC, there were a few more major issues that deterred from the language's readability and writability. First, since each line of code starts with the line number in the program, there is no formatting in BASIC to line up when different blocks of code start and end. This became very challenging to debug when I forgot an endif as the code was not formatted, which hurt the language's readability and writability as well. The other serious issue with BASIC was its lack of scope for variables. All variables are global and can be accessed from anywhere in the program. This is very dangerous when dealing with subroutines and made the code quite messy when trying to reuse input and output variables that I dedicated to the various subroutines. Considering that the program is a Caesar cipher and was messy because of variable reuse, I cannot imagine writing more complex programs in BASIC and micromanaging all the variables and how and when they are used.
-\\ \\
-Overall, the nice syntax of BASIC made it much easier to both read and write code compared to Fortran and COBOL, the lack of formatting and variable scope makes the language much more suited for smaller programs with few moving parts as it does not scale up well with increased complexity.
-
-\subsubsection{Google Search History}
-\begin{itemize}
-	\item hello world basic programming language
-	\item chipmunk basic
-	\item https://www.youtube.com/watch?v=7r83N3c2kPw
-	\item mid\$ basic 
-\end{itemize}
-
-\subsection{Pascal}
-\subsubsection{My Thoughts}
-My experience in Pascal was overall really good and I genuinely have very little to complain about. I found the code to be a great example of elegant simplicity. Pascal contained all of the basic programming constructs, including some of the more modern ones, while being less verbose than the other programming languages so far.
-\\ \\
-First, Pascal's clean and simple grammar made it both really easy to read and write the code. Some of the issues in languages like Fortran and COBOL was that they required all variables to be declared at the top of functions. Fortran did not have anything to separate these declarations and the actual program, and COBOL was extremely detailed and also did not exactly line up with the actual execution of the program. Although Pascal also requires variables to be declared at the top of functions, it has 2 very clean sections to do so, "const" for constants and "var" for everything else. The inclusion of these sections makes the code more readable as it is self-documenting within the sections as well as extremely writable as I was able to write a lot less code to do the same thing as COBOL. Another part of the language's grammar that is unique relative to the languages used so far is the walrus assignment operator (:=). Rather than using the single equal sign (=) for assignment, Pascal uses the walrus operator, which increases readability as there is no confusion between assignments and comparisons and only comes at the cost of one additional character being typed, which is a miniscule cost relative to ease of which one can understand the code.
-\\ \\
-Another feature that I really appreciated was how functions deal with return variables. In most other programming languages, you can return from any point in a function as well as have multiple return points. In Pascal, however, the returned variable takes the same name as the function and automatically gets returned at the end of the function. This design pattern upholds the idea of functions being one-way in and one-way out and makes the code extremely easy to understand and follow. I do, however, wish that the returned variable had a built-in name that was not the same name as the function as recursive functions may be hard to read because you can have multiple instances of the same name in a single line of code that both mean completely different things. Despite this small complaint from me, the improved design pattern carries a much larger weight than the name of a variable and, therefore, functions are much more readable and writable than most other programming languages today.
-\\ \\
-Overall, my experience using Pascal to write a Caesar cipher was really enjoyable due to its simple, yet feature-filled, grammar that made the code really easy to both read and write. I wish the language was more popular today because I found my experience to be better than some more modern languages that are widely used throughout the world.
-
-\subsubsection{Google Search History}
-\begin{itemize}
-	\item pascal hello world
-	\item pascal function multiple parameters
-	\item and operator pascal boolean expression
-\end{itemize}
-
-\subsection{Procedural Scala}
-Scala, although very similar to Java, was a bit awkward to write in a procedural manner because its identity lies closer to a functional programming language than a procedural one. Although it tries to be a better version of Java, its increased simplicity makes the syntax feel a bit constrained and challenging to write at times.
-\\ \\
-First, Scala's simple syntax makes it a bit harder to both read and write in certain situations. Looping in Scala is similar to the other languages used in this assignment as it condenses the variable declaration, comparison, and post-iteration adjustment into a few words. However, the syntax is inconsistent with declaring variables everywhere else in the program, which I do not really understand. Speaking of variable declaration, Scala's syntax for declaring variables prevents one from understanding if a variable is a constant or not. Variable declaration for constants begin with "val" and variable declarations for mutable variables begin with "var." This one letter difference does not make it very readable as one can easily glance over this error (I did several times) and is not very writable because the change is so minor that I do not feel like I am expressing the purpose of a variable with a single letter.
-\\ \\
-Fortunately, since Scala is a newer programming language, it provides developers with a wide range of tools out of the box. More specifically, its compiler is designed to increase understanding of the problems that it finds rather than just building programs. For instance, when I was trying to assign a new value to a variable declared with "val," the compiler initially threw an unhelpful error of the problem and suggested that I use the "-explain" flag for more details. I then tried to recompile the project with the "-explain" flag and the compiler not only showed me the line of code that had the error, but also explained why it was throwing the error and how to fix it. This was extremely useful as it helped my fix the problem as well as understand what I did wrong so I could learn from my mistakes. This feature is not uncommon with compilers of newer programming languages (Rust is a great example) as it helps boost the writability of the language by providing the better tools for developers to quickly get the answer to their problem rather than having to perform a Google search on the error message and hope that someone else has previously had the error.
-\\ \\
-Overall, Scala was not a bad programming language for the Caesar cipher as it has a lot of similar features and syntax patterns as a lot of other programming languages. However, its oversimplified syntax hurts it at times and is quickly made up for by its compiler that was built to increase developer productivity.
-
-\subsubsection{Google Search History}
-\begin{itemize}
-	\item scala hello world
-	\item scala loop through a string
-	\item scala string object
-	\item absolute value scala
-	\item scala convert int to char
-\end{itemize}
-
-\section{Conclusion}
-Here are my final rankings for the 5 programming languages:
-\begin{enumerate}
-	\item Pascal
-	\item Scala
-	\item BASIC
-	\item Fortran
-	\item COBOL
-\end{enumerate}
-
-Starting from the bottom, COBOL was a near nightmare to work with because it was extremely difficult to write and, despite its verbose code, did not follow the code that I wrote and, instead, decided to do its own thing at times. Next, Fortran was not a bad programming language by any means, but it was very difficult to write and had a compiler that produced confusing errors to understand. In second and third place, I have Scala and BASIC, respectively. Although I enjoyed writing BASIC more than Scala, the unsafe program structure of BASIC was tricky to work with at times, while the Scala compiler provided me with a great experience despite me not entirely liking its syntax. Lastly, Pascal was my favorite programming language in this assignment because it demonstrates the perfect balance of simplicity in its code while also being detailed enough for the code to document itself without questioning what the code does.
-
-\section{Appendix}
-\lstset{numbers=left, numberstyle=\tiny, stepnumber=1, numbersep=5pt}
-
-% Colors and lstset for syntax highlighting from https://www.overleaf.com/latex/examples/syntax-highlighting-in-latex-with-the-listings-package/jxnppmxxvsvk
-\definecolor{mygreen}{rgb}{0,0.6,0}
-\definecolor{mygray}{rgb}{0.5,0.5,0.5}
-\definecolor{mymauve}{rgb}{0.58,0,0.82}
-\lstset{
-  backgroundcolor=\color{white},   % choose the background color
-  basicstyle=\footnotesize,        % size of fonts used for the code
-  breaklines=true,                 % automatic line breaking only at whitespace
-  captionpos=b,                    % sets the caption-position to bottom
-  commentstyle=\color{mygreen},    % comment style
-  escapeinside={\%*}{*},          % if you want to add LaTeX within your code
-  keywordstyle=\color{blue},       % keyword style
-  stringstyle=\color{mymauve},     % string literal style
-}
-
-\subsection{Fortran}
+\subsubsection{Code and Tests}
 \lstinputlisting[caption = Caesar Cipher (Fortran), language = Fortran]{./../fortran/caesar.f90}
 \begin{lstlisting}[frame=single, caption = Fortran Output]  
 > gfortran caesar.f90 -o caesar
@@ -299,6 +203,34 @@ Caesar 0: HAL
 \end{lstlisting}
 
 \subsection{COBOL}
+\subsubsection{My Thoughts}
+Based on my experience with writing the Caesar cipher in COBOL, I have determined that it is not a user-friendly programming language in the slightest of ways. COBOL is extremely readable and self-documenting as every operation and section is explicitly defined by the programmer. This is the only decent thing going for it as the rest of my experience was dreadful due to its poor implicit type conversions and its lack of stack frames for functions.
+\\ \\
+First, the implicit type conversions for passing in parameters to functions was a nightmare to deal with by itself. In each function, all variables are defined with their types, and numeric types need to state the number of digits the variable will take up. However, oftentimes as a programmer you want to pass in a raw number to a function as the number will not be used anywhere else, so storing it in a variable would not be very useful. However, COBOL does not interpret these values well against defined types. For instance, an unsigned integer parameter that needs to store 2 digits must take in a number like "08" and not just "8." The main problem here is that the compiler does not say anything is wrong with the input. Instead, it can print out that it has an "8," but all mathematical operations with the value will be completely off. The same goes with signed numbers as well, but they basically do not even work as "-001" in a 3-digit signed integer comes back as "-00" and the "1" is missing, not to mention wild math results as well. Unfortunately, the only way to really deal with parameters is to pass in a variable that has the exact data type that the function is requesting. This ensures type safety as an "8" will be the same as "08," which contradicts the problems stated before. It almost reminds me of truthy and falsy values in JavaScript as you sometimes cannot tell what the output will be because the compiler just does its own thing without telling you what it is going to do.
+\\ \\
+Another serious issue that I faced was the lack of stack frames with function calls. In my experiences with many other programming languages, they all seem to use stack frames for function calls. That is, any variable defined in a function exists for no longer than the duration of the function. This means that the next time the function is called, the variable will be reinitialized with its starting value every time. Unfortunately, this is not the case for COBOL. Based on what I am able to tell, all variables defined in data divisions exist for the entirety of the program's lifespan. Therefore, the state of the variables for a function will be preserved across multiple function calls. COBOL lets you initialize variables in the data division with a value, but it is basically useless for functions that need to make sure that the variables get reset at the start of the function call anyway. This is another example of COBOL making itself really difficult to use because it provides functionality for features that do not make sense, at least relative to today's standards and paradigms.
+\\ \\
+Writing my Caesar cipher in COBOL was by far one of the most challenging things I have done as a programmer. In fact, COBOL's poor writability made Fortran look good, which demonstrates how bad my COBOL experience was because I did not originally think highly of Fortran. Although COBOL's code is self-documenting, it was nothing that could not be done with comments in Fortran and could not make up for the excruciatingly difficult task of writing COBOL code.
+
+\subsubsection{Google Search History}
+\begin{itemize}
+	\item cobol hello world
+	\item cobol column rules
+	\item functions in cobol
+	\item user-defined functions in cobol
+	\item data types in cobol
+	\item iterate through characters in a string cobol
+	\item string copy cobol
+	\item cobol function with both linkage section and working storage
+	\item convert character to ascii code cobol
+	\item get character from ordinal value cobol
+	\item cobol addition is not right
+	\item negative numbers in cobol
+	\item string length cobol
+	\item working storage section variables are not wiped after a function call and their state persists between function calls
+\end{itemize}
+
+\subsubsection{Code and Tests}
 \lstinputlisting[caption = Caesar Cipher (COBOL), language = COBOL]{./../cobol/caesar.cbl}
 \begin{lstlisting}[frame=single, caption = COBOL Output]  
 > cobc -x caesar.cbl
@@ -384,6 +316,26 @@ Caesar +000: HAL
 \end{lstlisting}
 
 \subsection{BASIC}
+\subsubsection{My Thoughts}
+BASIC, as implied by its name, is a very simple programming language that, at times, felt too orthogonal due to its lack of key features that are included in almost every other programming language. Despite these flaws, my experience writing the Caesar cipher in BASIC was much better than that for Fortran and COBOL.
+\\ \\
+User-defined program structure in BASIC was nice and flexible, but prevented any form of documentation. In BASIC, every line of code is preceded with a number that represents which line in the program the code should be inserted into. Although it was annoying to micromanage the code and make sure every line number was consistent, I did not mind this too much because I enjoy seeing these lower-level details. I was also thankful for a text editor because I know I would have struggled had I manually entered each line into an Apple II computer and rewrote the lines if I ran out of space or wanted to clean up the code organization. For subroutines, I used the practice of every 1000 lines was a new subroutine (i.e., encrypt started on line 1000, decrypt started on line 2000, and solve started on line 3000). I personally thought this was really cool because I was able to explicitly define how I wanted my code to be organized. However, calling these subroutines was through the line number, so the code was not self-documenting and comments were needed to label which subroutine was being called in each instance. This was really unfortunate as the rest of BASIC's syntax is extremely readable and self-documenting.
+\\ \\
+Similar to the code organization, I had mixed feelings about the simplicity of variables in BASIC. I really liked how all identifiers had to end with either a '\%' to show it is a number or a '\$' to show that it is a string. This was really nice because variable declaration was simple as the data type is implied with the name and there was never a question of a variable's type when writing the program because it is self-documented in its name. Despite this really nice syntax, BASIC provides no variable checking at runtime. For instance, if you omit the '\%' or '\$' or misspell a variable, the BASIC interpreter assumes that you are trying to reference a new variable. Thus, it creates a new variable and initializes it to 0 without telling you. When writing my Caesar cipher, this "feature" screwed up program execution, and it was very difficult to debug since there were no warnings or error messages.
+\\ \\
+Aside from some of these minor issues I had with BASIC, there were a few more major issues that deterred from the language's readability and writability. First, since each line of code starts with the line number in the program, there is no formatting in BASIC to line up when different blocks of code start and end. This became very challenging to debug when I forgot an endif as the code was not formatted, which hurt the language's readability and writability as well. The other serious issue with BASIC was its lack of scope for variables. All variables are global and can be accessed from anywhere in the program. This is very dangerous when dealing with subroutines and made the code quite messy when trying to reuse input and output variables that I dedicated to the various subroutines. Considering that the program is a Caesar cipher and was messy because of variable reuse, I cannot imagine writing more complex programs in BASIC and micromanaging all the variables and how and when they are used.
+\\ \\
+Overall, the nice syntax of BASIC made it much easier to both read and write code compared to Fortran and COBOL, the lack of formatting and variable scope makes the language much more suited for smaller programs with few moving parts as it does not scale up well with increased complexity.
+
+\subsubsection{Google Search History}
+\begin{itemize}
+	\item hello world basic programming language
+	\item chipmunk basic
+	\item https://www.youtube.com/watch?v=7r83N3c2kPw
+	\item mid\$ basic 
+\end{itemize}
+
+\subsubsection{Code and Tests}
 \lstinputlisting[caption = Caesar Cipher (BASIC), language = VBScript]{./../basic/caesar.bas}
 \begin{lstlisting}[frame=single, caption = BASIC Output]
 Chipmunk BASIC 368b2.02
@@ -467,6 +419,23 @@ Caesar 0 : HAL
 \end{lstlisting}
 
 \subsection{Pascal}
+\subsubsection{My Thoughts}
+My experience in Pascal was overall really good and I genuinely have very little to complain about. I found the code to be a great example of elegant simplicity. Pascal contained all of the basic programming constructs, including some of the more modern ones, while being less verbose than the other programming languages so far.
+\\ \\
+First, Pascal's clean and simple grammar made it both really easy to read and write the code. Some of the issues in languages like Fortran and COBOL was that they required all variables to be declared at the top of functions. Fortran did not have anything to separate these declarations and the actual program, and COBOL was extremely detailed and also did not exactly line up with the actual execution of the program. Although Pascal also requires variables to be declared at the top of functions, it has 2 very clean sections to do so, "const" for constants and "var" for everything else. The inclusion of these sections makes the code more readable as it is self-documenting within the sections as well as extremely writable as I was able to write a lot less code to do the same thing as COBOL. Another part of the language's grammar that is unique relative to the languages used so far is the walrus assignment operator (:=). Rather than using the single equal sign (=) for assignment, Pascal uses the walrus operator, which increases readability as there is no confusion between assignments and comparisons and only comes at the cost of one additional character being typed, which is a miniscule cost relative to ease of which one can understand the code.
+\\ \\
+Another feature that I really appreciated was how functions deal with return variables. In most other programming languages, you can return from any point in a function as well as have multiple return points. In Pascal, however, the returned variable takes the same name as the function and automatically gets returned at the end of the function. This design pattern upholds the idea of functions being one-way in and one-way out and makes the code extremely easy to understand and follow. I do, however, wish that the returned variable had a built-in name that was not the same name as the function as recursive functions may be hard to read because you can have multiple instances of the same name in a single line of code that both mean completely different things. Despite this small complaint from me, the improved design pattern carries a much larger weight than the name of a variable and, therefore, functions are much more readable and writable than most other programming languages today.
+\\ \\
+Overall, my experience using Pascal to write a Caesar cipher was really enjoyable due to its simple, yet feature-filled, grammar that made the code really easy to both read and write. I wish the language was more popular today because I found my experience to be better than some more modern languages that are widely used throughout the world.
+
+\subsubsection{Google Search History}
+\begin{itemize}
+	\item pascal hello world
+	\item pascal function multiple parameters
+	\item and operator pascal boolean expression
+\end{itemize}
+
+\subsubsection{Code and Tests}
 \lstinputlisting[caption = Caesar Cipher (Pascal), language = Pascal]{./../pascal/caesar.pas}
 \begin{lstlisting}[frame=single, caption = Pascal Output]
 > fpc caesar.pas
@@ -555,7 +524,25 @@ Caesar 1: IBM
 Caesar 0: HAL
 \end{lstlisting}
 
-\subsection{Scala}
+\subsection{Procedural Scala}
+Scala, although very similar to Java, was a bit awkward to write in a procedural manner because its identity lies closer to a functional programming language than a procedural one. Although it tries to be a better version of Java, its increased simplicity makes the syntax feel a bit constrained and challenging to write at times.
+\\ \\
+First, Scala's simple syntax makes it a bit harder to both read and write in certain situations. Looping in Scala is similar to the other languages used in this assignment as it condenses the variable declaration, comparison, and post-iteration adjustment into a few words. However, the syntax is inconsistent with declaring variables everywhere else in the program, which I do not really understand. Speaking of variable declaration, Scala's syntax for declaring variables prevents one from understanding if a variable is a constant or not. Variable declaration for constants begin with "val" and variable declarations for mutable variables begin with "var." This one letter difference does not make it very readable as one can easily glance over this error (I did several times) and is not very writable because the change is so minor that I do not feel like I am expressing the purpose of a variable with a single letter.
+\\ \\
+Fortunately, since Scala is a newer programming language, it provides developers with a wide range of tools out of the box. More specifically, its compiler is designed to increase understanding of the problems that it finds rather than just building programs. For instance, when I was trying to assign a new value to a variable declared with "val," the compiler initially threw an unhelpful error of the problem and suggested that I use the "-explain" flag for more details. I then tried to recompile the project with the "-explain" flag and the compiler not only showed me the line of code that had the error, but also explained why it was throwing the error and how to fix it. This was extremely useful as it helped me fix the problem as well as understand what I did wrong so I could learn from my mistakes. This feature is not uncommon with compilers of newer programming languages (Rust is a great example) as it helps boost the writability of the language by providing the better tools for developers to quickly get the answer to their problem rather than having to perform a Google search on the error message and hope that someone else has previously had the error.
+\\ \\
+Overall, Scala was not a bad programming language for the Caesar cipher as it has a lot of similar features and syntax patterns as a lot of other programming languages. However, its oversimplified syntax hurts it at times and is quickly made up for by its compiler that was built to increase developer productivity.
+
+\subsubsection{Google Search History}
+\begin{itemize}
+	\item scala hello world
+	\item scala loop through a string
+	\item scala string object
+	\item absolute value scala
+	\item scala convert int to char
+\end{itemize}
+
+\subsubsection{Code and Tests}
 \lstinputlisting[caption = Caesar Cipher (Scala), language = Scala]{./../scala/caesar.scala}
 \begin{lstlisting}[frame=single, caption = Scala Output]  
 > scalac caesar.scala -explain
@@ -636,4 +623,17 @@ Caesar 2: JCN
 Caesar 1: IBM
 Caesar 0: HAL
 \end{lstlisting}
+
+\section{Conclusion}
+Here are my final rankings for the 5 programming languages:
+\begin{enumerate}
+	\item Pascal
+	\item Scala
+	\item BASIC
+	\item Fortran
+	\item COBOL
+\end{enumerate}
+
+Starting from the bottom, COBOL was a near nightmare to work with because it was extremely difficult to write and, despite its verbose code, did not follow the code that I wrote and, instead, decided to do its own thing at times. Next, Fortran was not a bad programming language by any means, but it was very difficult to write and had a compiler that produced confusing errors to understand. In second and third place, I have Scala and BASIC, respectively. Although I enjoyed writing BASIC more than Scala, the unsafe program structure of BASIC was tricky to work with at times, while the Scala compiler provided me with a great experience despite me not entirely liking its syntax. Lastly, Pascal was my favorite programming language in this assignment because it demonstrates the perfect balance of simplicity in its code while also being detailed enough for the code to document itself without questioning what the code does.
+
 \end{document}
