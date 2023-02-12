@@ -303,8 +303,8 @@ decrypt:
 # a1 = string length
 # a2 = max shift amount
 solve:
-    mv t0, a2 # Store the current shift amount
-    li t1, 26 # 26 constant for use to take the modulus
+    mv  t0, a2 # Store the current shift amount
+    li  t1, 26 # 26 constant for use to take the modulus
 
     solve_abs:
         # Negate the value if needed to make it positive
@@ -319,55 +319,55 @@ solve:
 
     solve_loop:
         # Break when less than 0
-        blt t0, zero, solve_break
+        blt     t0, zero, solve_break
 
         # Negate the current shift amount for the decrypt function
-        neg a2, t0
+        neg     a2, t0
 
         # Push the current shift amount and return address onto the stack
-        addi sp, sp, -8
-        sw ra, 4(sp)
-        sw t0, 0(sp)
+        addi    sp, sp, -8
+        sw      ra, 4(sp)
+        sw      t0, 0(sp)
 
-        call decrypt
+        call    decrypt
 
         # Pop the current shift amount from the stack
-        lw t0, 0(sp)
-        lw ra, 4(sp)
-        addi sp, sp, 8
+        lw      t0, 0(sp)
+        lw      ra, 4(sp)
+        addi    sp, sp, 8
 
         # Print out the current shifted string
-        li  a7, 64
-        addi a2, a1, 1
-        mv  a1, a0
-        li  a0, 1
+        li      a7, 64
+        addi    a2, a1, 1
+        mv      a1, a0
+        li      a0, 1
         ecall
 
         # Reset the registers to work with decrypt
-        mv a0, a1
-        addi a1, a2, -1
-        mv a2, t0
+        mv      a0, a1
+        addi    a1, a2, -1
+        mv      a2, t0
 
         # We now have to call decrypt with the non-negated shift amount
         # because decrypt modifies the original string, so we need to fix that
 
         # Push the current shift amount and return address onto the stack
-        addi sp, sp, -8
-        sw ra, 4(sp)
-        sw t0, 0(sp)
+        addi    sp, sp, -8
+        sw      ra, 4(sp)
+        sw      t0, 0(sp)
 
-        call decrypt
+        call    decrypt
 
         # Pop the current shift amount from the stack
-        lw t0, 0(sp)
-        lw ra, 4(sp)
-        addi sp, sp, 8
+        lw      t0, 0(sp)
+        lw      ra, 4(sp)
+        addi    sp, sp, 8
 
         # Decrement the shift amount
-        addi t0, t0, -1
+        addi    t0, t0, -1
 
         # Go back to the top
-        j solve_loop
+        j   solve_loop
 
     solve_break:
         ret
@@ -383,3 +383,4 @@ empty_string:
 
 no_letters:
     .ascii "1234567890!@#$%^&*(){}\n"
+    

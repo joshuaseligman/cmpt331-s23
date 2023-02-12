@@ -636,4 +636,109 @@ Here are my final rankings for the 5 programming languages:
 
 Starting from the bottom, COBOL was a near nightmare to work with because it was extremely difficult to write and, despite its verbose code, did not follow the code that I wrote and, instead, decided to do its own thing at times. Next, Fortran was not a bad programming language by any means, but it was very difficult to write and had a compiler that produced confusing errors to understand. In second and third place, I have Scala and BASIC, respectively. Although I enjoyed writing BASIC more than Scala, the unsafe program structure of BASIC was tricky to work with at times, while the Scala compiler provided me with a great experience despite me not entirely liking its syntax. Lastly, Pascal was my favorite programming language in this assignment because it demonstrated the perfect balance of simplicity in its code while also being detailed enough for the code to document itself without me questioning what the code does.
 
+\section{Appendix: RISC-V Assembly}
+\subsection{My Thoughts}
+For an additional challenge (and some fun), I decided to also complete the assignment in RISC-V assembly. Since the solution in the other programming languages was quite simple, the logic of the RISC-V assembly was very similar and was easy to translate from the other languages. I was genuinely surprised by the writability of RISC-V assembly, but this increased writability hurts the readability from the short instructions.
+\\ \\
+RISC-V was surprisingly extremely expressive for a an assembly language. RISC-V is unique in that it has a very small instruction set with not many features. However, it comes with a collection of pseudo instructions that all translate more common instructions in other assembly languages into the RISC-V equivalent. For instance, instead of loading a constant to a register by doing "ADDI rd, zero, immediate," RISC-V has a pseudo instruction of LI, which stands for load immediate and just takes in the destination register and the immediate. This expressiveness made it easier to write as the pseudo instruction is a mini higher-level abstraction that allowed me to focus on the logic and register management rather than dealing with any small nuances with RISC-V assembly. Additionally, the small instruction set made it quick to learn as I was able to build the entire program with only a small number of instructions. Next, the program structure of the RISC-V implementation reminded me the most of BASIC as it was just one big program and I had to manage the different subroutines that get run and the registers that are needed in each subroutine. However, one of the features of RISC-V that BASIC was lacking was a stack pointer. With this capability, I was able to modularize my code and not worry about a subroutine overwriting a register that was being used in a different subroutine.
+\\ \\
+Despite the impressive writability of RISC-V assembly, the terse instructions made the RISC-V assembly difficult to read. Since instructions are typically 2-4 letters long, I always felt that I was not being verbose enough to be able to understand the code that I wrote. Thus, comments were a necessity to explain what each chunk of code did so I could look back and understand the logic behind the various subroutines. Assembly is already hard enough to read because of its extreme low-level nature, so the very short instructions never helped with being able to read the code because I had to think to myself what each instruction represented.
+\\ \\
+Overall, I really enjoyed writing the Caesar cipher in RISC-V assembly and found it easier than Fortran and COBOL. However, assembly is not a reasonable choice for complex programs as one has to manage all of the registers by hand and micromanage every tiny detail of the program. Regardless, I believe that RISC-V assembly is a really nice way to better understand both computer hardware as well as compilers and how they manage registers and the various resources in a computer.
+
+\subsection{Resources I Used}
+As RISC-V assembly was purely for my own enjoyment, I did not time myself or keep track of my Google Search history. Instead, I did keep track of some of the most useful resources I found.
+\begin{itemize}
+	\item Toolchain (Homebrew): https://github.com/riscv-software-src/homebrew-riscv
+	\item RISC-V hello world (one of my favorite youtube channels for CS): https://www.youtube.com/watch?v=GWiAQs4-UQ0	
+	\item Instruction cheat sheet: http://blog.translusion.com/images/posts/RISC-V-cheatsheet-RV32I-4-3.pdf
+	\item Stack and functions: http://wla.berkeley.edu/~cs61c/fa17/lec/06/L06\%20RISCV\%20Functions\%20(1up).pdf
+	\item Linux system calls: https://github.com/riscv-collab/riscv-gnu-toolchain/blob/master/linux-headers/include/asm-generic/unistd.h
+	\item RISC-V book: https://riscv-programming.org/book/riscv-book.html
+\end{itemize}
+
+\subsection{Code and Tests}
+\lstinputlisting[caption = Caesar Cipher (RISC-V Assembly)]{./../riscv/caesar.s}
+\begin{lstlisting}[frame=single, caption = RISC-V Assembly Output]  
+> make
+rm -f caesar.o
+rm -f caesar
+riscv64-unknown-elf-as -g -c caesar.s -o caesar.o
+riscv64-unknown-elf-gcc -g caesar.o -o caesar -nostdlib -static
+> make run
+riscv64-unknown-elf-run caesar
+BPQA QA I BMAB ABZQVO NZWU ITIV
+THIS IS A TEST STRING FROM ALAN
+HAL
+GZK
+FYJ
+EXI
+DWH
+CVG
+BUF
+ATE
+ZSD
+YRC
+XQB
+WPA
+VOZ
+UNY
+TMX
+SLW
+RKV
+QJU
+PIT
+OHS
+NGR
+MFQ
+LEP
+KDO
+JCN
+IBM
+HAL
+
+SGHR HR Z SDRS RSQHMF EQNL ZKZM
+THIS IS A TEST STRING FROM ALAN
+UIJT JT B UFTU TUSJOH GSPN BMBO
+THIS IS A TEST STRING FROM ALAN
+
+
+1234567890!@#$%^&*(){}
+1234567890!@#$%^&*(){}
+
+HAL
+GZK
+FYJ
+EXI
+DWH
+CVG
+BUF
+ATE
+ZSD
+YRC
+XQB
+WPA
+VOZ
+UNY
+TMX
+SLW
+RKV
+QJU
+PIT
+OHS
+NGR
+MFQ
+LEP
+KDO
+JCN
+IBM
+HAL
+
+LEP
+KDO
+JCN
+IBM
+HAL
+\end{lstlisting}
+
 \end{document}
