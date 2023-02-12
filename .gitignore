@@ -6,3 +6,4 @@ caesar
 *.class
 *.tasty
 .metals/
+.DS_Store
