@@ -3,9 +3,8 @@
   (set 'realStr (explode (upper-case str)))
   ; Get the mod because only need to work within -25 and 25
   (set 'realShift (mod shiftAmt 26))
-  (println realStr)
-  (println realShift)
 
+  ; Map the transformation to each character
   (set 'newStr (map (lambda (strChar)
          ; Begin by getting the ASCII code
          (set 'newChar (char strChar))
@@ -13,7 +12,6 @@
          (cond ((and (>= newChar 65) (<= newChar 90))
             ; Perform the shift
             (set 'newChar (+ newChar realShift))
-            (println newChar)
             
             ; Check for the Z wraparound
             (set 'diff (- newChar 90))
@@ -21,21 +19,31 @@
               ((> diff 0)
                 (set 'newChar (+ 65 (- diff 1)))
               )
-              (t
+              (true
                 ; Check for A wraparound
                 (set 'diff (- 65 newChar))
-                (cond ((> diff 0) (set 'newChar (- 90 (+ diff 1)))))
+                (cond
+                  ((> diff 0)
+                    (set 'newChar (- 90 (+ diff 1)))
+                  )
+                )
               )
             )
          ))
-         (println(char newChar))
          (char newChar)
        )
        realStr))
-  newStr
+  ; Join the exploded string and put it back together
+  (join newStr "")
 )
 
-(set 'x (encryptStr "hello world" -5))
-(println x)
+(define (decryptStr str shiftAmt)
+  (encryptStr str (* -1 shiftAmt))
+)
+
+(set 'encryptOut (encryptStr "This is a test string from Alan" 8))
+(println encryptOut)
+(set 'decryptOut (decryptStr encryptOut 8))
+(println decryptOut)
 
 (exit)
