@@ -17,14 +17,14 @@
             (set 'diff (- newChar 90))
             (cond
               ((> diff 0)
-                (set 'newChar (+ 65 (- diff 1)))
+                (set 'newChar (- (+ 65 diff) 1))
               )
               (true
                 ; Check for A wraparound
                 (set 'diff (- 65 newChar))
                 (cond
                   ((> diff 0)
-                    (set 'newChar (- 90 (+ diff 1)))
+                    (set 'newChar (+ (- 90 diff) 1))
                   )
                 )
               )
@@ -32,7 +32,8 @@
          ))
          (char newChar)
        )
-       realStr))
+       realStr)
+  )
   ; Join the exploded string and put it back together
   (join newStr "")
 )
@@ -41,9 +42,26 @@
   (encryptStr str (* -1 shiftAmt))
 )
 
+(define (solve str maxShift)
+  ; Make sure the shift is between 0 and 26
+  (set 'realMaxShift maxShift)
+  (cond ((< realMaxShift 0) (set 'realMaxShift (* -1 realMaxShift))))
+  (cond ((> realMaxShift 26) (set 'realMaxShift (mod realMaxShift 26))))
+  (map (lambda (curShift)
+         ; Call encrypt with the current shift amount
+         (set 'out (encryptStr str curShift))
+         (println "Caesar " curShift ": " out)
+       )
+       ; Generate a sequence from the max down to 0 (inclusive)
+       (sequence realMaxShift 0))
+)
+
+
 (set 'encryptOut (encryptStr "This is a test string from Alan" 8))
 (println encryptOut)
 (set 'decryptOut (decryptStr encryptOut 8))
 (println decryptOut)
+
+(solve "HAL" 26)
 
 (exit)
