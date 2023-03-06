@@ -7,3 +7,4 @@ caesar
 *.tasty
 .metals/
 .DS_Store
+*.swp
