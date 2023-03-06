@@ -6,7 +6,7 @@
   (println realStr)
   (println realShift)
 
-  (map (lambda (strChar)
+  (set 'newStr (map (lambda (strChar)
          ; Begin by getting the ASCII code
          (set 'newChar (char strChar))
          ; Only work with letters now
@@ -19,7 +19,7 @@
             (set 'diff (- newChar 90))
             (cond
               ((> diff 0)
-                (set 'newChar (+ (65 (- diff 1))))
+                (set 'newChar (+ 65 (- diff 1)))
               )
               (t
                 ; Check for A wraparound
@@ -28,12 +28,14 @@
               )
             )
          ))
+         (println(char newChar))
          (char newChar)
        )
-       realStr)
-  (println realStr)
+       realStr))
+  newStr
 )
 
-(encryptStr "hello world" -28)
+(set 'x (encryptStr "hello world" -5))
+(println x)
 
 (exit)
