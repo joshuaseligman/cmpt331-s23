@@ -61,7 +61,12 @@
 
 \section{Log}
 \subsection{Predicton}
-I am predicting that it will take me around \textbf{15 hours (average of 3 hours per programming language)} for me to learn LISP, ML, Erlang, functional JavaScipt, and functional Scala and write a Caesar cipher in each langage. Although I know that some of this assignment will be more challenging than Programming in the Past because functional programming requires a completely different mindset, I am already familiar with functional JavaScipt and can use some of that knowledge to hopefully be able to quickly write the Caesar cipher in each language. Also, since I have already written the Caesar cipher in 5 languages, I know this assignment will be translating that work into a functional manner rather than trynig to do it entirely from scratch. 
+I am predicting that it will take me around \textbf{15 hours (average of 3 hours per programming language)} for me to learn LISP, ML, Erlang, 
+functional JavaScipt, and functional Scala and write a Caesar cipher in each langage. Although I know that some of this assignment will be more 
+challenging than Programming in the Past because functional programming requires a completely different mindset, I am already familiar with 
+functional JavaScipt and can use some of that knowledge to hopefully be able to quickly write the Caesar cipher in each language. Also, since I 
+have already written the Caesar cipher in 5 languages, I know this assignment will be translating that work into a functional manner rather than 
+trying to do it entirely from scratch. 
 
 \subsection{Progress Log}
 \begin{center}
@@ -70,6 +75,8 @@ I am predicting that it will take me around \textbf{15 hours (average of 3 hours
 		Date & Hours Spent & Tasks / Accomplishments / Issues / Thoughts
 		\\
 		\hline
+        March 6 & 3.5 hours & I wrote the Caesar cipher in LISP. It was a bit challenging because the syntax is not the cleanest and it is very 
+        difficult to find things online about it because every dialect does basic tasks different from one another.
         \\
 		\hline
 	\end{longtable}
@@ -80,15 +87,49 @@ I am predicting that it will take me around \textbf{15 hours (average of 3 hours
 \section{Commentary}
 \subsection{LISP}
 \subsubsection{My Thoughts}
+LISP was a language I do not want to remember because it was nothing special relative to most other programming languages and had some features 
+that were really frustrating to deal with. More specifically, the syntax for the language is too simplistic with intense operator overloading, 
+confusing code organization, and poor online resources.
+\\ \\
+First, the syntax of LISP is extremely simple because parentheses are used everywhere. In LISP, lists are the main data structure and are denoted with 
+parentheses. However, lists are used to make function calls, to define functions, and to store data, which makes it really confusing what is being stored within a 
+list as there is nothing to differentiate these structures. Readability is seriously hurt from this as I still struggle to make the distinction between function 
+calls and data after writing the code. Additionally, I found it difficult to write LISP code because the parentheses were challenging to manage and to keep clean. 
+I tried my absolute best to keep parentheses lined up similar to how braces would be lined up in C family languages, but it still was not perfect and had some 
+inconsistencies. Furthermore, messing up on the parentheses was a pain to debug because the LISP interpreter would throw a confusing error that meant absolutely 
+nothing in helping me resolve the real problem.
+\\ \\
+Next, LISP has a very frustrating way to represent math operations. Since everything is a function in LISP, all math functions will take in 2 arguments, which 
+can be the result of other math function calls. Similar to how a compiler works, the operations you want to do first have to be encapsulated so their output 
+will be used by other functions. Hovever, I had to learn this idea the hard way when I did (- 90 (+ diff 1) instead of (+ (- 90 diff) 1)) to represent the formula
+90 - diff + 1. Naturally, I wanted to represent the subtraction first, so I naively placed it in the outermost function call, which was a really bad idea.
+Although minor, this change in operation order screwed up my program for a while and my friends had to remind me of the order of operations for why the 2 
+code chunks weere different from each other. This syntax for specifying the order of operations for a formula does not make logical sense as the code no 
+longer reads from left to right. Rather, one has to read it middle out (sadly not related to middle out compression in the TV show Silicon Valley) and build a mini
+syntax tree in their head to be able to actually understand what the code is doing.
+\\ \\
+Lastly, LISP is a really old language, and, similar to BASIC, its many dialects made good online resources hard to come by. When searching for how to do something in LISP, 
+whatever a website had as an answer was most likely wrong becouse the dialect that I was using (newLISP) did not support functionalities specific to some of the 
+other dialects. Unfortunately, no website specified what dialect they were referring to, and doing the same search but with "newLISP" instead of "lisp" would 
+just bring up the documentation for newLISP. At the end of the day, this documentation and the corresponding Wikibook were my best friends for writing the Caesar cipher
+in LISP as they provided me with the basics to get started, which I was able to modify for my own purposes.
+\\ \\
+Overall, LISP was not a terrible programming language as I really liked the succinctness of its functional style, but its overly simplistic syntax, annoying math 
+functions, and limited resources made it challenging to work with. Relative to the Programming in the Past assignment, I would rank LISP similar to Fortran as they are 
+both the grandfather languages of their respective domains and were not terrible and somewhat useable, but I would never want to use them again if I do not have to.
 
 \subsubsection{Google Search History}
-
 \begin{itemize}
     \item lisp hello world
     \item comments in lisp
+    \item math functions lisp
+    \item lambda in lisp
+    \item and in lisp
 \end{itemize}
 
 \subsubsection{Code and Tests}
+\lstinputlisting[caption = Caesar Cipher (LISP), language = LISP]{./../lisp/caesar.lsp}
+\lstinputlisting[caption = LISP Output]{./../lisp/caesar.log}
 
 \subsection{ML}
 \subsubsection{My Thoughts}
