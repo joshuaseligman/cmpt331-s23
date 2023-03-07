@@ -105,8 +105,9 @@ will be used by other functions. Hovever, I had to learn this idea the hard way 
 90 - diff + 1. Naturally, I wanted to represent the subtraction first, so I naively placed it in the outermost function call, which was a really bad idea.
 Although minor, this change in operation order screwed up my program for a while and my friends had to remind me of the order of operations for why the 2 
 code chunks weere different from each other. This syntax for specifying the order of operations for a formula does not make logical sense as the code no 
-longer reads from left to right. Rather, one has to read it middle out (sadly not related to middle out compression in the TV show Silicon Valley) and build a mini
-syntax tree in their head to be able to actually understand what the code is doing.
+longer reads from left to right. Rather, one has to read it middle out (sadly not related to middle out compression in the TV show Silicon Valley) and do a depth-first
+in-order traversal of a mini syntax tree in their head to be able to actually understand what the code is doing. This amount of brain damage is completely overkill as
+one already has to treat functional logic completely differently from procedural logic, and this math function ordering does not help LISP in being user-friendly.
 \\ \\
 Lastly, LISP is a really old language, and, similar to BASIC, its many dialects made good online resources hard to come by. When searching for how to do something in LISP, 
 whatever a website had as an answer was most likely wrong becouse the dialect that I was using (newLISP) did not support functionalities specific to some of the 
@@ -120,7 +121,7 @@ both the grandfather languages of their respective domains and were not terrible
 
 \subsubsection{Google Search History}
 \begin{itemize}
-    \item lisp hello world
+    \item lisp hello world (https://en.wikibooks.org/wiki/Introduction\_to\_newLISP)
     \item comments in lisp
     \item math functions lisp
     \item lambda in lisp
