@@ -83,6 +83,10 @@ trying to do it entirely from scratch.
         steeper learning curve.
         \\
         \hline
+        March 8 & 0.25 hours & I had a lightbulb moment regarding everything I did poorly in ML and fixed it all up. I am much happier now that the code is
+        more concise and flows a lot better.
+        \\
+        \hline
 	\end{longtable}
 \end{center}
 
@@ -138,11 +142,46 @@ both the grandfather languages of their respective domains and were not terrible
 
 \subsection{ML}
 \subsubsection{My Thoughts}
+My Caesar cipher in ML will forever be remembered as the hackiest solution to a Caesar cipher. The language itself is just a cleaned up version of LISP with better
+documentation, but lack of sequential statements within functions and some weird math quirks made it one of the most rewarding challenges I have had in recent memory.
+\\ \\
+From my knowledge, ML functions do not support chaining multiple statements together. Rather, they only support returning the output from a single function call,
+which can have many nested function calls used as the input to the main function whose value is being returned. This made modularization difficult because it was
+always a big dilemma as to which chunks of logic could be put together versus separating them out into their own functions. As a fan of procedural programming,
+this was difficult to wrap my brain around as I struggled to match the data types together to be able to use the output from one function as the input to another.
+Furthermore, as an inexperienced functional programmer, I initially forced together a solution that worked but was very inefficient as I made a list of shift amounts
+and then ziped that list with the characters to create a list of tuples to pass into the performShift function. It was not until after a good night's rest when I realized
+that I could have just used an anonymous function and only map through the characters because then I could pass the shift amount in consistently without my crazy 
+solution. Although my initial solution worked, I did make the change for code conciseness and because it was a better translation of the logic that was being done.
+This was also a lesson learned as the first solution that comes to mind when writing a functional program is not always the best answer because the logic has to be
+thought of in a more abstract way to come up with the best possible solution.
+\\ \\
+The other weird quirk was the syntax for negative numbers. When I was initially writing my ML program, I did not know how to represent a negative number in ML.
+Every time I wanted to use a - to represent negation, I was presented with a syntax error, most likely because - was a function for subtraction behind the scenes.
+Since I was already in the mindset to hack a solution together, I put a Band Aid on the problem by writing a function that negated a number by subtracting itself
+twice. I originally did not care about this function because it worked, but it did bother me because I knew that there was no way a programming language would
+make me write a negate function just to be able to represent a negative number. Similar to the previous problem with the hacky map function, I played around in 
+ML's interactive mode for a couple minutes the next day to find out that it uses $\sim$ instead of - to represent negative values. Although this is a tiny quirk of ML, 
+it really bothered me because the writability was harmed due to the language not able to fully represent standand mathematical notation. Fortunately, this did not 
+cause me nearly as much brain dammage as the order of operations in LISP or trying to force multiple arguments into a map function in ML, but it was something to note
+because it was initially a key part in my program until I fixed it for clarity in the code.
+\\ \\
+Despite my annoyed experience writing the Caesar cipher in ML, I did have some good moments writing it. First, I love the type safety of the language as every
+variable and function is strictly defined. This is crucial for functional languages because it makes the code self-documenting and I know exactly what data type
+a function expects and what I will be receiving back as a return value. My other positive note was specific to the Standard ML of New Jersey, but its interactive
+mode proved to be extremely useful when I was trying to figure out what functions were available to me. For instance, if I typed the command "open String;", I was 
+presented with a full list of every string function in ML with definitions for the expected data types of the arguments and the return type. I did not dive deeper to
+find formal function definitions with verbose descriptions of what a given function did, but the basic definitions were enough for me as I was able to find
+what I was looking for and quickly added it to my code.
+\\ \\
+ML is in a weird place for me because it was more challenging than LISP because of the lack of sequential statements within a function, but I preferred its syntax and
+tooling over LISP. In other words, although my experience in LISP was better than ML, I would pick ML over LISP if I had to write a program in a functional language
+because its sytax is cleaner and significantly more readable and has better tooling and documentation compared to LISP.
 
 \subsubsection{Google Search History}
 \begin{itemize}
     \item standard ml of nj (https://www.smlnj.org/doc/literature.html\#tutorials)
-    \item ML programming language hello world (https://www.cs.nmsu.edu/$\sim$rth/cs/cs471/sml.html) (AMAZING resource)
+    \item ML programming language hello world (https://www.cs.nmsu.edu/$\sim$rth/cs/cs471/sml.html) (Amazing resource)
     \item sml merge 2 lists into a list of tuples (https://cs.wellesley.edu/$\sim$cs251/s19/slides/sml-lists-solns\_4up.pdf) (Another great resource)
     \item else if sml
 \end{itemize}
