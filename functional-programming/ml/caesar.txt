@@ -1,17 +1,12 @@
 Standard ML of New Jersey (64-bit) v110.99.3 [built: Thu Jul 28 00:35:16 2022]
 [opening caesar.sml]
-val negate = fn : int -> int
 val createSequence = fn : int -> int list
-val createListInt = fn : int * int -> int list
-val createListString = fn : string * int -> string list
 val handleWraparond = fn : int -> int
 [autoloading]
 [library $SMLNJ-BASIS/basis.cm is stable]
 [library $SMLNJ-BASIS/(basis.cm):basis-common.cm is stable]
 [autoloading done]
 val performShift = fn : char * int -> char
-[autoloading]
-[autoloading done]
 val encrypt = fn : string * int -> string
 val decrypt = fn : string * int -> string
 val cleanSolveShift = fn : int -> int
@@ -109,5 +104,5 @@ Caesar: 2: JCN
 Caesar: 1: IBM
 Caesar: 0: HAL
 val it = () : unit
-caesar.sml:112.1-112.36 Warning: type vars not generalized because of
+caesar.sml:82.1-82.36 Warning: type vars not generalized because of
    value restriction are instantiated to dummy types (X1,X2,...)

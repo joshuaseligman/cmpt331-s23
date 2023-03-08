@@ -1,6 +1,3 @@
-(* Function to negate an integer value because multiplying by -1 doesn't work *)
-fun negate(x: int): int = x - x - x;
-
 (* Creates a sequence from num down to 0, inclusive  *)
 fun createSequence(num: int): int list =    if num <= 0 then
                                                 (* Base case is just a 0 *)
@@ -8,23 +5,6 @@ fun createSequence(num: int): int list =    if num <= 0 then
                                             else
                                                 (* Append the current number to the rest of the sequence *)
                                                 [num]@createSequence(num - 1);
-
-(* Creates a list with num and size numElements *)
-fun createListInt(num: int, numElements: int): int list = if numElements <= 1 then
-                                                            (* Recursion base case is size 1 *)
-                                                            [num]
-                                                        else
-                                                            (* Append a list of size 1 to the returned recursive list *)
-                                                            [num]@createListInt(num, numElements - 1);
-
-(* Creates a list with str and size numElements *)
-fun createListString(str: string, numElements: int): string list = if numElements <= 1 then
-                                                            (* Recursion base case is size 1 *)
-                                                            [str]
-                                                        else
-                                                            (* Append a list of size 1 to the returned recursive list *)
-                                                            [str]@createListString(str, numElements - 1);
-
 
 (* Function that deals with the wraparounds *)
 fun handleWraparond(charValue: int): int =  if charValue > 90 then
@@ -45,21 +25,15 @@ fun performShift(c: char, shiftAmt: int): char =    if Char.isAlpha(c) then
 (* Runs the encrypt with the given shift on the string  *)
 fun encrypt(inStr: string, shiftAmt: int): string = implode( (* Puts the list back together into a string *)
                                                         map (* Run performShift on every element of the list *)
-                                                        performShift
+                                                        (fn (c) => performShift(c, shiftAmt mod 26))
                                                         (
-                                                            (* Need a tuple of the character and shift amount for performShift *)
-                                                            (* val zip : 'a list * 'b list -> ('a * 'b) list *)
-                                                            ListPair.zip(
-                                                                (* Create list of characters *)
-                                                                explode(inStr),
-                                                                (* Create list of shift amounts *)
-                                                                createListInt(shiftAmt mod 26, size(inStr))
-                                                            )
+                                                            (* Create list of characters *)
+                                                            explode(inStr)
                                                         )
                                                     );
 
 (* Runs the decrypt (negative encrypt) on a string *)
-fun decrypt(inStr: string, shiftAmt: int): string = encrypt(inStr, negate(shiftAmt));
+fun decrypt(inStr: string, shiftAmt: int): string = encrypt(inStr, ~shiftAmt);
 
 (* Creates the shift value for solve *)
 fun cleanSolveShift(shift: int): int =  if Int.abs(shift) > 26 then
@@ -70,14 +44,10 @@ fun cleanSolveShift(shift: int): int =  if Int.abs(shift) > 26 then
 (* Solves the Caesar cipher *)
 fun solve(inStr: string, maxShiftAmt: int): string list =   map
                                                             (* Lambda function that runs encrypt with the current shift amount *)
-                                                            (fn (str, shift) => "Caesar: "^Int.toString(shift)^": "^encrypt(str, shift))
+                                                            (fn (shift) => "Caesar: "^Int.toString(shift)^": "^encrypt(inStr, shift))
                                                             (
-                                                                ListPair.zip(
-                                                                    (* Create a list of many of the same string *)
-                                                                    createListString(inStr, cleanSolveShift(maxShiftAmt) + 1),
-                                                                    (* Create a sequence from the max shift down to 0 *)
-                                                                    createSequence(cleanSolveShift(maxShiftAmt))
-                                                                )
+                                                                (* Create a sequence from the max shift down to 0 *)
+                                                                createSequence(cleanSolveShift(maxShiftAmt))
                                                             );
 
 print("Alan tests:\n");
@@ -88,8 +58,8 @@ print(String.concatWith("\n")(solveOut)^"\n");
 
 print("Encrypt and decrypt tests:\n");
 (* Negative shift *)
-val encryptOut: string = encrypt("This is a test string from Alan", negate(1));
-val decryptOut: string = decrypt(encryptOut, negate(1));
+val encryptOut: string = encrypt("This is a test string from Alan", ~1);
+val decryptOut: string = decrypt(encryptOut, ~1);
 (* Mod shift *)
 val encryptOut: string = encrypt("This is a test string from Alan", 27);
 val decryptOut: string = decrypt(encryptOut, 27);
@@ -102,7 +72,7 @@ val decryptOut: string = decrypt(encryptOut, 7);
 
 print("Solve tests:\n");
 (* Negative shift *)
-val solveOut: string list = solve("HAL", negate(26));
+val solveOut: string list = solve("HAL", ~26);
 print(String.concatWith("\n")(solveOut)^"\n");
 (* Mod shift *)
 val solveOut: string list = solve("HAL", 30);
