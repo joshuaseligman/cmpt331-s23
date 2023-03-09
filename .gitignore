@@ -8,3 +8,4 @@ caesar
 .metals/
 .DS_Store
 *.swp
+*.beam
