@@ -90,6 +90,9 @@ trying to do it entirely from scratch.
         March 8 & 2.5 hours & I wrote the Caesar cipher in Erlang and was pleasantly surprised by how easy it was relative to LISP and ML.
         \\
         \hline
+        March 10 & 0.25 hours & I wrote the Caesar cipher in JavaScript. I already had experience with functional JS, so this was a breeze for me to do.
+        \\
+        \hline
 	\end{longtable}
 \end{center}
 
@@ -239,12 +242,34 @@ within the program.
 
 \subsection{Functional JavaScipt}
 \subsubsection{My Thoughts}
+JavaScript is a wonderful language and has a clean syntax for writing functional code that, unlike some other functional languages,
+scales well with complexity.
+\\ \\
+One of the main problems with some functional languages, most notably ML, is that they only support functions and sequential statements
+may be challenging to implement. However, since JavaScript is a procedural language that happens to support the functional philosophy,
+its functions can be as long as the programmer wants them to be. Although it is best to keep functions short, I felt that ML was
+too restrictive on this, and JavaScript allowed me to express the entire logic for a function rather than forcing me to split it up
+into multiple smaller functions. This was really important for me as I felt that I was working in a normal procedural manner even
+though I was really writing functional code.
+\\ \\
+The one downside with JavaScript, however, is that it is not strongly typed and the programmer cannot explictly define the data type
+of a variable. This can be challenging to both read and write as the data types are not a part of the syntax, so the code is not entirely
+self-documenting. Unlike Erlang, JavaScript does not perform implicit type conversions and there were never any surprises when writing my code,
+which made my life really easy with no brain damage.
+\\ \\
+JavaScript is one of the world's most popular programming languages for a reason. It has a clean and consistent syntax that allows programmers
+to get a best of both worlds with procedural and functional programming philosophies without being extremely restrictive. JavaScript's lack of
+a strongly typed syntax is a drawback for the language, but is quickly negated by the ease of use of JavaScript and the flexibility the
+language provides to its programmers.
 
 \subsubsection{Google Search History}
-%\begin{itemize}
-%\end{itemize}
+\begin{itemize}
+    \item javascript string functions
+\end{itemize}
 
 \subsubsection{Code and Tests}
+\lstinputlisting[caption = Caesar Cipher (JavaScript)]{./../js/caesar.js}
+\lstinputlisting[caption = JavaScript Output]{./../js/caesar.txt}
 
 \subsection{Functional Scala}
 
