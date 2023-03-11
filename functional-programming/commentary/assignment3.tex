@@ -5,6 +5,7 @@
 \usepackage{listings}
 \usepackage{color}
 \usepackage{longtable}
+\usepackage{etaremune}
 
 \numberwithin{equation}{section}
 \numberwithin{figure}{section}
@@ -91,6 +92,10 @@ trying to do it entirely from scratch.
         \\
         \hline
         March 10 & 0.25 hours & I wrote the Caesar cipher in JavaScript. I already had experience with functional JS, so this was a breeze for me to do.
+        \\
+        \hline
+        March 10 & 1 hour & I wrote the Caesar cipher in Scala. Similar to the last assigment, this was surprisingly really frustrating to do, but the compiler
+        was helpful in getting me the answers I needed.
         \\
         \hline
 	\end{longtable}
@@ -272,11 +277,57 @@ language provides to its programmers.
 \lstinputlisting[caption = JavaScript Output]{./../js/caesar.txt}
 
 \subsection{Functional Scala}
+\subsubsection{My Thoughts}
+Since writing a Caesar cipher in Scala in a procedural manner, doing the same task in a functional manner did not improve my opinion of the language.
+Its identity is still completely mixed between a procedural and functional language and does not do either particularly well. The syntax of the language
+has always felt clunky and I always struggled to write code that would compile. Luckily, the Scala compiler is good and helped me overcome
+the many obstacles I faced.
+\\ \\
+The Scala code for the Caesar cipher was not much different than the code for the JavaScript solution. However, I found it much more challenging to write
+compared to the JavaScript solution. The largest roadblock I encontered was getting the map function to work on the character array. Since Scala is strongly
+typed, the compiler is extremely careful with the data types being inputted and returned to any given function. However, the Scala compiler was not completely
+clear about how the data types from the map function were being handled as I was consistently confused whether the map function was sending a Char type or an Int
+type. It did tell me what it was receiving and what was defined, but it took me a while to figure out how to make sense of the messages and fix it in my code.
+Unfortunately, I spent a ton of time trying to get the functions to line up in data types through trial and error and was relieved once the code decided to
+compile. Strongly typed code is really good for readability and writability, but it should not be a puzzle to get the data types to line up between functions.
+\\ \\
+Another issue I had with Scala with the map function was that I was unable to get it to work like the JavaScript code in that it only supported a single statement
+in the body. This forced me to modularize the performShift logic into its own function, but it just did not feel right in a hybrid language. It is either completely
+functional or completely procedural, which does not really allow for programs to be flexible and for developers to really express themselves because of the
+restrictions the language enforces through its syntax.
+\\ \\
+Overall, Scala is still not a preferred language of mine due to its surprisingly frustrating and restrictive syntax that prevented me from easily expressing
+the logic I wanted to represent in the code. Although not as useful as the last assignment, the compiler continued to be a redeeming factor for the language, and
+slightly improved my experience with the language and greatly decreased development time. After 2 assignments in Scala, the compiler has become a crutch for me,
+which emphasizes how much of a challenge it has been for me to write the Scala programs and how I have struggled to learn and understand the language.
 
 \subsubsection{Google Search History}
-%\begin{itemize}
-%\end{itemize}
+\begin{itemize}
+    \item scala string functions
+    \item array methods scala
+    \item map function in scala
+    \item scala convert char to int
+    \item scala void method
+\end{itemize}
 
 \subsubsection{Code and Tests}
+\lstinputlisting[caption = Caesar Cipher (Scala), language = Scala]{./../scala/caesar.scala}
+\lstinputlisting[caption = Scala Output]{./../scala/caesar.txt}
+
+\section{Conclusion}
+Here are my final rankings for the 5 functional programming languages:
+\begin{etaremune}
+    \item JavaScript
+    \item Erlang
+    \item Scala
+    \item ML
+    \item LISP
+\end{etaremune}
+
+Starting from the bottom, LISP was just alright in terms of features, but its syntax was confusing to follow because of all the paretheses. ML, despite being more
+challenging than LISP, was much more readable and a bit more writable once I got into the flow of functional programming. Next, Scala was just so frustrating to use
+that its compiler was unable to bail it out again to be preferred over Erlang. Speaking of Erlang, it was overall really clean and easy to write despite its weird
+implicit type conversions and unique syntax relative to other languages. Lastly, JavaScript was amazing in every facet and demonstrated its dominance in the industry
+with its simple and powerful syntax and flexibility to maximize developer productivity.
 
 \end{document}
