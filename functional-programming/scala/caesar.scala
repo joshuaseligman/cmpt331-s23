@@ -10,7 +10,7 @@ object Caesar {
 
             if (newChar > 90) {
                 // Handle Z wraparound
-                newChar = 65 + newChar - 90 - 1 ;
+                newChar = 65 + newChar - 90 - 1;
             } else if (newChar < 65) {
                 // Handle A wraparound
                 newChar = 90 - 65 + newChar + 1;
@@ -23,7 +23,7 @@ object Caesar {
     // Function to encrypt a string by the given shift amount
     def encrypt(inputStr: String, shiftAmount: Int): String = {
         // Compute the actual shift amount being used
-        val realShift: Int = shiftAmount % 26
+        val realShift: Int = shiftAmount % 26;
         
         // Get the array of characters
         var stringChars: Array[Char] = inputStr.toUpperCase().toCharArray();
@@ -64,44 +64,43 @@ object Caesar {
     }
 
     def main(args: Array[String]) = {
-        println("Alan tests:")
-        var encryptOut: String = encrypt("This is a test string from Alan", 8)
-        println(encryptOut)
-        var decryptOut: String = decrypt(encryptOut, 8)
-        println(decryptOut)
-        solve("HAL", 26)
+        println("Alan tests:");
+        var encryptOut: String = encrypt("This is a test string from Alan", 8);
+        println(encryptOut);
+        var decryptOut: String = decrypt(encryptOut, 8);
+        println(decryptOut);
+        solve("HAL", 26);
 
-        println("\nEncrypt and decrypt tests:")
+        println("\nEncrypt and decrypt tests:");
         // Test negative shift amount
-        encryptOut = encrypt("This is a test string from Alan", -1)
-        println(encryptOut)
-        decryptOut = decrypt(encryptOut, -1)
-        println(decryptOut)
+        encryptOut = encrypt("This is a test string from Alan", -1);
+        println(encryptOut);
+        decryptOut = decrypt(encryptOut, -1);
+        println(decryptOut);
 
         // Test modulus
-        encryptOut = encrypt("This is a test string from Alan", 27)
-        println(encryptOut)
-        decryptOut = decrypt(encryptOut, 27)
-        println(decryptOut)
+        encryptOut = encrypt("This is a test string from Alan", 27);
+        println(encryptOut);
+        decryptOut = decrypt(encryptOut, 27);
+        println(decryptOut);
 
         // Test empty string
-        encryptOut = encrypt("", 27)
-        println(encryptOut)
-        decryptOut = decrypt(encryptOut, 27)
-        println(decryptOut)
+        encryptOut = encrypt("", 27);
+        println(encryptOut);
+        decryptOut = decrypt(encryptOut, 27);
+        println(decryptOut);
 
         // Test no letters
-        encryptOut = encrypt("1234567890!@#$%^&*(){}", 27)
-        println(encryptOut)
-        decryptOut = decrypt(encryptOut, 27)
-        println(decryptOut)
+        encryptOut = encrypt("1234567890!@#$%^&*(){}", 27);
+        println(encryptOut);
+        decryptOut = decrypt(encryptOut, 27);
+        println(decryptOut);
 
-        println("\nSolve tests:")
+        println("\nSolve tests:");
         // Test absolute value
-        solve("HAL", -26)
-        println()
+        solve("HAL", -26);
+        println();
         // Test modulus
-        solve("HAL", 30)
-
+        solve("HAL", 30);
     }
 }
