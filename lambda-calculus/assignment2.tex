@@ -1,0 +1,397 @@
+\documentclass[letterpaper, 10pt, DIV=13]{scrartcl}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{amsmath, amsfonts, amsthm, xfrac}
+\usepackage{color}
+\usepackage{longtable}
+\usepackage{etaremune}
+\usepackage[table]{xcolor}
+\usepackage{tabularx}
+\usepackage{array}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+
+\usepackage{sectsty}
+\allsectionsfont{\normalfont\scshape} % Make all section titles in default font and small caps.
+\renewcommand{\thesubsection}{\thesection.\alph{subsection}}
+
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\setlength\parindent{0pt}
+\pagenumbering{gobble}
+
+\title {
+	\normalfont
+	\huge{Lambda Calculus} \\
+	\vspace{10pt}
+	\large{CMPT 331 - Spring 2023 | Dr. Labouseur}
+}
+
+\author{\normalfont Josh Seligman | joshua.seligman1@marist.edu}
+\date{\normalfont April 5, 2023}
+
+\pagenumbering{arabic}
+\begin{document}
+\maketitle
+
+\section{Beta-reduce the following expressions to their normal form}
+\subsection{$(\lambda a~\lambda y~.~y~a) (z~z)$}
+\begin{center}
+\begin{tabularx}{\textwidth}{|Y|Y|}
+    \hline
+    Expression & Explanation \\
+    \hline
+    $(\lambda a~\lambda y~.~y~a) (z~z)$ & Initial expression \\
+    \hline
+    $\lambda y~.~y~a~[(z~z) / a]$ & Substitute $(z~z)$ for $a$ \\
+    \hline
+    \rowcolor{lightgray}$(\lambda y~.~y~(z~z))$ & $\beta$ reduction \\
+    \hline
+\end{tabularx}
+\end{center}
+
+\subsection{$(\lambda x \lambda y.(x~y))(\lambda z.y)$}
+\begin{center}
+\begin{tabularx}{\textwidth}{|Y|Y|}
+    \hline
+    Expression & Explanation \\
+    \hline
+    $(\lambda x \lambda y.(x~y))(\lambda z.y)$ & Initial expression \\
+    \hline
+    $(\lambda x \lambda w.(x~w))(\lambda z.y)$ & Rename $y$ in the left function because it is a bound variable \\
+    \hline
+    $(\lambda w.(x~w))~[(\lambda z.y) / x]$ & Substitute $(\lambda z.y)$ for $x$ \\
+    \hline
+    $(\lambda w.((\lambda z.y)~w))$ & $\beta$ reduction \\
+    \hline
+    $(y)~[w / z]$ & Substitute $w$ for $z$ \\
+    \hline
+    \rowcolor{lightgray}$(\lambda w.y)$ & $\beta$ reduction \\
+    \hline
+\end{tabularx}
+\end{center}
+
+\subsection{$(\lambda x.(x~x))(\lambda y.(y~y))$}
+\begin{center}
+\begin{tabularx}{\textwidth}{|Y|Y|}
+    \hline
+    Expression & Explanation \\
+    \hline
+    $(\lambda x.(x~x))(\lambda y.(y~y))$ & Initial expression \\
+    \hline
+    $(x~x)~[(\lambda y.(y~y)) / x]$ & Substitute $(\lambda y.(y~y))$ for $x$ \\
+    \hline
+    $(\lambda y.(y~y))~(\lambda y.(y~y))$ & $\beta$ reduction \\
+    \hline
+    $(\lambda y.(y~y))~(\lambda z.(z~z))$ & Rename $y$ in the right function because it is a bound variable \\
+    \hline
+    $(y~y)~[(\lambda z.(z~z)) / y]$ & Substitute $(\lambda z.(z~z))$ for $y$ \\
+    \hline
+    \rowcolor{lightgray}$(\lambda z.(z~z))~(\lambda z.(z~z))$ & $\beta$ reduction. The expression is irreducible and there is no normal form because a $\beta$
+    reduction will always result in the starting expression. \\
+    \hline
+\end{tabularx}
+\end{center}
+
+\subsection{$K~x~y$}
+\begin{center}
+\begin{tabularx}{\textwidth}{|Y|Y|}
+    \hline
+    Expression & Explanation \\
+    \hline
+    $K~x~y$ & Initial expression \\
+    \hline
+    $(\lambda ab.a)~x~y$ & $\alpha$ convert $K$ \\
+    \hline
+    $(\lambda b.a)~[x / a]$ & Substitute $x$ for $a$ \\
+    \hline
+    $(\lambda b.x)~y$ & $\beta$ reduction \\
+    \hline
+    $(x)~[y / b]$ & Substitute $y$ for $b$ \\
+    \hline
+    \rowcolor{lightgray}$x$ & $\beta$ reduction \\
+    \hline
+\end{tabularx}
+\end{center}
+
+\subsection{$S~K$}\label{part-e}
+\begin{center}
+\begin{tabularx}{\textwidth}{|Y|Y|}
+    \hline
+    Expression & Explanation \\
+    \hline
+    $S~K$ & Initial expression \\
+    \hline
+    $(\lambda adc.a~c~(d~c))~K$ & $\alpha$ convert $S$ \\
+    \hline
+    $(\lambda dc.a~c~(d~c))~[K / a]$ & Substitute $K$ for $a$ \\
+    \hline
+    $(\lambda dc.K~c~(d~c))$ & $\beta$ reduction \\
+    \hline
+    $(\lambda dc.((\lambda xy.x)~c~(d~c)))$ & $\alpha$ convert $K$ \\
+    \hline
+    $(\lambda y.x)~[c / x]$ & Substitute $c$ for $x$ \\
+    \hline
+    $(\lambda dc.((\lambda y.c)~(d~c))$ & $\beta$ reduction \\
+    \hline
+    $(c)~[(d~c) / y]$ & Substitute $(d~c)$ for $y$ \\
+    \hline
+    \rowcolor{lightgray}$\lambda dc.c$ & $\beta$ reduction. This is equivalent to $K'$ combinator. \\
+    \hline
+\end{tabularx}
+\end{center}
+
+\subsection{$(S~K)~y~y~z$}
+\begin{center}
+\begin{tabularx}{\textwidth}{|Y|Y|}
+    \hline
+    Expression & Explanation \\
+    \hline
+    $(S~K)~y~y~z$ & Initial expression \\
+    \hline
+    $(\lambda dc.c)~y~y~z$ & From Problem \ref{part-e} \\
+    \hline
+    $(\lambda c.c)~[y / d]$ & Substitute $y$ for $d$ \\
+    \hline
+    $(\lambda c.c)~y~z$ & $\beta$ reduction \\
+    \hline
+    $(c)~[y / c]$ & Substitute $y$ for $c$ \\
+    \hline
+    \rowcolor{lightgray}$y~z$ & $\beta$ reduction \\
+    \hline
+\end{tabularx}
+\end{center}
+
+\subsection{$K'~y~y~z$}
+\begin{center}
+\begin{tabularx}{\textwidth}{|Y|Y|}
+    \hline
+    Expression & Explanation \\
+    \hline
+    $K'~y~y~z$ & Initial expression \\
+    \hline
+    $(\lambda dc.c)~y~y~z$ & $\alpha$ convert $K'$ \\
+    \hline
+    $(\lambda c.c)~[y / d]$ & Substitute $y$ for $d$ \\
+    \hline
+    $(\lambda c.c)~y~z$ & $\beta$ reduction \\
+    \hline
+    $(c)~[y / c]$ & Substitute $y$ for $c$ \\
+    \hline
+    \rowcolor{lightgray}$y~z$ & $\beta$ reduction \\
+    \hline
+\end{tabularx}
+\end{center}
+
+\section{What is the normal form of $(K~S)~(K~I)$?}
+\begin{center}
+\begin{tabularx}{\textwidth}{|Y|Y|}
+    \hline
+    Expression & Explanation \\
+    \hline
+    $(K~S)~(K~I)$ & Initial expression \\
+    \hline
+    $((\lambda ab.a)~S)~(K~I)$ & $\alpha$ convert first $K$ \\
+    \hline
+    $(\lambda b.a)~[S / a]$ & Substitute $S$ for $a$ \\
+    \hline
+    $(\lambda b.S)~(K~I)$ & $\beta$ reduction \\
+    \hline
+    $(S)~[(K~I) / b]$ & Substitute $(K~I)$ for $b$ \\
+    \hline
+    $S$ & $\beta$ reduction \\
+    \hline
+    \rowcolor{lightgray}$(\lambda pqr.pr(q~r))$ & $\alpha$ convert $S$ \\
+    \hline
+\end{tabularx}
+\end{center}
+
+\section{Prove the following equivalencies by reducing each side to its normal form.}
+\subsection{$I = S~K~K$}\label{part-3a}
+\begin{center}
+\begin{tabularx}{\textwidth}{|Y|Y|}
+    \hline
+    Expression & Explanation \\
+    \hline
+    $I \stackrel{?}{=} S~K~K$ & Initial expression \\
+    \hline
+    $\lambda x.x \stackrel{?}{=} S~K~K$ & $\alpha$ convert $I$ \\
+    \hline
+    $\lambda x.x \stackrel{?}{=} (\lambda yx.x)~K$ & From Problem \ref{part-e} \\
+    \hline
+    $(\lambda x.x)~[K / y]$ & Substitute $K$ for $y$ \\
+    \hline
+    \rowcolor{lightgray}$\lambda x.x = \lambda x.x$ & $\beta$ reduction \\
+    \hline
+\end{tabularx}
+\end{center}
+
+\subsection{$S~K~K = K~I~I$}
+\begin{center}
+\begin{tabularx}{\textwidth}{|Y|Y|}
+    \hline
+    Expression & Explanation \\
+    \hline
+    $S~K~K \stackrel{?}{=} K~I~I$ & Initial expression \\
+    \hline
+    $\lambda x.x \stackrel{?}{=} K~I~I$ & From Problem \ref{part-3a} \\
+    \hline
+    $\lambda x.x \stackrel{?}{=} (\lambda ab.a)~I~I$ & $\alpha$ convert $K$ \\
+    \hline
+    $(\lambda b.a)~[I / a]$ & Substitute $I$ for $a$ \\
+    \hline
+    $\lambda x.x \stackrel{?}{=} (\lambda b.I)~I$ & $\beta$ reduction \\
+    \hline
+    $(I)~[I / b]$ & Substitute $I$ for $b$ \\
+    \hline
+    $\lambda x.x \stackrel{?}{=} I$ & $\beta$ reduction \\
+    \hline
+    \rowcolor{lightgray}$\lambda x.x = \lambda x.x$ & $\alpha$ convert $I$ \\
+    \hline
+\end{tabularx}
+\end{center}
+
+\section{Given the definition of Church numerals, what does $(\bar{m}~\bar{n})$ do when $\bar{m}$ and $\bar{n}$ are Church numerals?}
+To determine the output of $(\bar{m}~\bar{n})$, I will solve several example problems to determine the pattern for the outputs.
+In the work below, the steps for substitution and $\beta$ reduction are merged into 1 step for brevity.
+
+\subsection{$(\bar{2}~\bar{3})$}
+\begin{center}
+\begin{tabularx}{\textwidth}{|Y|Y|}
+    \hline
+    Expression & Explanation \\
+    \hline
+    $(\bar{2}~\bar{3})$ & Initial expression \\
+    \hline
+    $(\lambda fx.(f~(f~x)))(\bar{3})$ & Definition of Church numerals \\
+    \hline
+    $\lambda x.(\bar{3}~(\bar{3}~x))$ & $\beta$ reduction of $f$ \\
+    \hline
+    $\lambda x.(\bar{3}~((\lambda gy.(g~(g~(g~y))))~x))$ & Definition of Church numerals \\
+    \hline
+    $\lambda x.(\bar{3}~\lambda y.(x~(x~(x~y))))$ & $\beta$ reduction of $g$ \\
+    \hline
+    $\lambda x.((\lambda hz.(h~(h~(h~z))))~(\lambda y.(x~(x~(x~y)))))$ & Definition of Church numerals \\
+    \hline
+    $\lambda x.\lambda z.(A~(A~(A~z)))$ & $\beta$ reduction of $h$ and let $A = \lambda y.(x~(x~(x~y)))$ \\
+    \hline
+    $\lambda x.\lambda z.(A~(A~((\lambda y.(x~(x~(x~y))))~z)))$ & Expand $A$ \\
+    \hline
+    $\lambda x.\lambda z.(A~(A~(x~(x~(x~z)))))$ & $\beta$ reduction of $y$ \\
+    \hline
+    $\lambda x.\lambda z.(A~((\lambda y.(x~(x~(x~y))))~(x~(x~(x~z)))))$ & Expand $A$ \\
+    \hline
+    $\lambda x.\lambda z.(A~(x~(x~(x~(x~(x~(x~z)))))))$ & $\beta$ reduction of $y$ \\
+    \hline
+    $\lambda x.\lambda z.((\lambda y.(x~(x~(x~y))))~(x~(x~(x~(x~(x~(x~z)))))))$ & Expand $A$ \\
+    \hline
+    \rowcolor{lightgray}$\lambda x.\lambda z.(x~(x~(x~(x~(x~(x~(x~(x~(x~z)))))))))$ & $\beta$ reduction of $y$. This is equal to
+    the Church numeral $\bar{9}$, which is $\overline{3^2}$ or $\overline{n^m}$. \\
+    \hline
+\end{tabularx}
+\end{center}
+
+\subsection{$(\bar{3}~\bar{2})$}
+Based on the result of $(\bar{2}~\bar{3})$, I would expect $(\bar{3}~\bar{2})$ to be $\bar{8}$, which is $\overline{2^3}$.
+\begin{center}
+\begin{tabularx}{\textwidth}{|Y|Y|}
+    \hline
+    $(\bar{3}~\bar{2})$ & Initial expression \\
+    \hline
+    $((\lambda fx.(f~(f~(f~x))))~\bar{2})$ & Definition of Church numerals \\
+    \hline
+    $\lambda x.(\bar{2}~(\bar{2}~(\bar{2}~x)))$ & $\beta$ reduction of $f$ \\
+    \hline
+    $\lambda x.(\bar{2}~(\bar{2}~((\lambda gy.(g~(g~y)))~x)))$ & Definition of Church numerals \\
+    \hline
+    $\lambda x.(\bar{2}~(\bar{2}~(\lambda y.(x~(x~y)))))$ & $\beta$ reduction of $g$ \\
+    \hline
+    $\lambda x.(\bar{2}~((\lambda hz.(h~(h~z)))~(\lambda y.(x~(x~y)))))$ & Definition of Church numerals \\
+    \hline
+    $\lambda x.(\bar{2}~(\lambda z.(A~(A~z))))$ & $\beta$ reduction of $h$ and let $A = \lambda y.(x~(x~y))$ \\
+    \hline
+    $\lambda x.(\bar{2}~(\lambda z.(A~((\lambda y.(x~(x~y)))~z))))$ & Expand $A$ \\
+    \hline
+    $\lambda x.(\bar{2}~(\lambda z.(A~(x~(x~z)))))$ & $\beta$ reduction of $y$ \\
+    \hline
+    $\lambda x.(\bar{2}~(\lambda z.((\lambda y.(x~(x~y)))~(x~(x~z)))))$ & Expand $A$ \\
+    \hline
+    $\lambda x.(\bar{2}~(\lambda z.(x~(x~(x~(x~z))))))$ & $\beta$ reduction of $y$ \\
+    \hline
+    $\lambda x.((\lambda gy.(g~(g~y)))~(\lambda z.(x~(x~(x~(x~z))))))$ & Definition of Church numerals \\
+    \hline
+    $\lambda x.(\lambda y.(B~(B~y)))$ & $\beta$ reduction of $g$ and let $B = \lambda z.(x~(x~(x~(x~z))))$ \\
+    \hline
+    $\lambda x.(\lambda y.(B~((\lambda z.(x~(x~(x~(x~z)))))~y)))$ & Expand $B$ \\
+    \hline
+    $\lambda x.(\lambda y.(B~(x~(x~(x~(x~y))))))$ & $\beta$ reduction of $z$ \\
+    \hline
+    $\lambda x.\lambda y.((\lambda z.(x~(x~(x~(x~z)))))~((x~(x~(x~(x~y))))))$ & Expand $B$ \\
+    \hline
+    \rowcolor{lightgray}$\lambda x.\lambda y.(x~(x~(x~(x~(x~(x~(x~(x~y))))))))$ & $\beta$ reduction of $z$. This is equal to
+    the Church numeral $\bar{8}$, which is $\overline{2^3}$ or $\overline{n^m}$. \\
+    \hline
+\end{tabularx}
+\end{center}
+
+\subsection{$(\bar{1}~\bar{2})$}
+Since both examples thus far have matched the pattern of $\overline{n^m}$, I would expect math to not be broken here as
+$(\bar{1}~\bar{2})$ should equal $\bar{2}$.
+\begin{center}
+\begin{tabularx}{\textwidth}{|Y|Y|}
+    \hline
+    $(\bar{1}~\bar{2})$ & Initial expression \\
+    \hline
+    $((\lambda fx.(f~x))~\bar{2})$ & Definition of Church numerals \\
+    \hline
+    $\lambda x.(\bar{2}~x)$ & $\beta$ reduction of $f$ \\
+    \hline
+    $\lambda x.((\lambda gy.(g~(g~y)))~x)$ & Definition of Church numerals \\
+    \hline
+    \rowcolor{lightgray}$\lambda x.(\lambda y.(x~(x~y)))$ & $\beta$ reduction of $g$. This is equal to
+    the Church numeral $\bar{2}$, which is $\overline{2^1}$ or $\overline{n^m}$. \\
+    \hline
+\end{tabularx}
+\end{center}
+
+\subsection{$(\bar{0}~\bar{2})$}
+The final check to ensure $(\bar{m}~\bar{n})$ is rasing $n$ to the power of $m$ is to make sure that anything raised
+to the power of 0 is equal to 1. Thus, I would expect $(\bar{0}~\bar{2})$ to equal $\bar{1}$.
+\begin{center}
+\begin{tabularx}{\textwidth}{|Y|Y|}
+    \hline
+    $(\bar{0}~\bar{2})$ & Initial expression \\
+    \hline
+    $((\lambda fx.x)~\bar{2})$ & Definition of Church numerals \\
+    \hline
+    \rowcolor{lightgray}$\lambda x.x$ & $\beta$ reduction of $f$. There are no further reductions that can be done as this is
+    the $I$ combinator. Thus, the pattern of $\overline{n^m}$ is not satisfied when $m = 0$.\\
+    \hline
+\end{tabularx}
+\end{center}
+
+\subsection{Final Results}
+Overall, given 2 Church numerals, $\bar{m}$ and $\bar{n}$, the expression $(\bar{m}~\bar{n})$ will evaluate as one of the following expressions
+based on the value of $m$. Note: Subscripts for $f$ denote count as they are all representing the same variable $f$.
+\begin{equation*}
+    (\bar{m}~\bar{n}) =
+    \begin{cases}
+        \overline{n^m} = \lambda fx.(f_1~(f_2~(f_3~\cdots~(f_{n^m - 1}~(f_{n^m}~x))\cdots))), & m > 0 \\
+        I = \lambda x.x, & m = 0
+    \end{cases}
+\end{equation*}
+
+\end{document}
