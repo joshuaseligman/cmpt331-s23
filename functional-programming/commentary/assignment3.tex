@@ -215,8 +215,8 @@ Erlang was a language that I was not expecting to like, but I really enjoyed my 
 such as it not being strongly typed and performs implicit type conversions and variables are all immutable, but the syntax is overall really clean and easy to follow.
 \\ \\
 My only serious issue with Erlang was the implicit type conversion from a string to an integer. Erlang does not support strings and, instead, treats
-a string as a list of characters, which are just numbers behind the scenes. Thus, when I wrote the performShift method, I passed in the string/list
-and it automatically treated the data as an integer instead of a character. This is extremely dangerous because I never told it to make the conversion
+a string as a list of characters, which are just numbers behind the scenes. Thus, when I wrote the performShift function, I passed in the string/list
+and it automatically treated the data as an integer instead of a character. This is extremely dangerous because I never told Erlang to make the conversion
 and was expecting to see individual characters. Unfortunately, this problem is emphasized more because Erlang is not strongly typed, so I never had an
 opportunity to state what data type I wanted each variable to be. This hurts Erlang in all 3 aspects: readability, writability, and reliability because
 the code is not self-documenting, it is harder to write when the variables are not strongly typed, and the language cannot be reliable if it does not tell
@@ -224,8 +224,11 @@ the programmer that it is doing its own thing by making the conversions on its o
 \\ \\
 One minor issue I had with Erlang was that all variables are immutable. Since Erlang supports sequential statements, I assumed that I would be able
 to combine a few statements to help create the logic for determining the value of a returned variable. Unfortunately, since variables are immutable, I had to
-be a little creative for how I could assign the proper value in one statement compared to in multiple steps. This is an extremely minor complaint on my
-part as it did not seriously impact my experience with Erlang.
+be a little creative for how I could assign the proper value in one statement compared to in multiple steps. Instead of following a particular scope pattern,
+variables defined within functions in Erlang are accessible throughout the function even if they are defined within an if-statement. This is very different
+than most other programming languages as the idea of scope felt almost nonexistent and some of my Erlang code would not work in almost every single other 
+programming language. This is an extremely minor complaint on my part as it did not seriously impact my experience with Erlang, but Erlang's reliability is
+decreased here because the language has its own scope rules that do not align with most other programming languages.
 \\ \\
 Aside from the issues with the type conversions, Erlang's syntax is extremely clean and very easy to follow. I also appreciated how everything in Erlang 
 requires recursion. When writing the Caesar cipher in LISP and ML, I was extremely caught up in the notion of using the map functionality to call a function 
