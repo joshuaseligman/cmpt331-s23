@@ -101,11 +101,11 @@ Rust-eze does, however, differ from its parent languages in the following ways:
 \begin{lstlisting}[caption = HelloWorld.rez, frame = single, nolol]
 model HelloWorld
 start
-    pub fn main(Vec<String> args)
+    pub fn main(Vec<String> args) -> void
     start
         println("Hello world!");
     finish main
-finish HelloWorld
+finish model
 \end{lstlisting}
 
 \subsection{Program Structure}
@@ -145,28 +145,28 @@ start
     specs
     start
         pub String name;
-        pub int age;
+        pub i32 age;
         int miles;
     finish specs
 
-    pub fn Lightning(String my_name, int my_age)
+    pub fn Lightning(String my_name, i32 my_age)
     start
         self.name := my_name;
         self.age := my_age;
         self.miles := 0;
     finish Lightning
 
-    pub fn drive(&mut self, int num_miles)
+    pub fn drive(&mut self, i32 num_miles) -> void
     start
-        int new_mileage := self.miles + num_miles;
+        i32 new_mileage := self.miles + num_miles;
         self.miles := new_mileage;
     finish drive
 
-    pub fn say_it(&self)
+    pub fn say_it(&self) -> void
     start
         println("Kachow!");
     finish say_it
-finish Lightning
+finish model
 \end{lstlisting}
 
 Next, the Lightning model is imported to a new file called \textit{Main.rez}
@@ -181,7 +181,7 @@ import garage.Lightning;
 
 model Main
 start
-    pub fn main(Vec<String> args)
+    pub fn main(Vec<String> args) -> void
     start
         mut Lightning the_lightning := new Lightning("McQueen", 17);
         println(the_lightning.name);
@@ -189,7 +189,7 @@ start
         the_lightning.say_it();
         the_lightning.drive(42);
     finish main
-finish Main
+finish model
 \end{lstlisting}
 
 \subsection{Types and Variables}
@@ -213,13 +213,13 @@ model in which it is defined.
 \textbf{Statement} & \textbf{Example} \\
 \hline
 Assignment statement & \begin{lstlisting}[nolol, numbers = none]
-mut int x := 5;
+mut i32 x := 5;
 x = 3;
-int y := x + 2;
+i32 y := x + 2;
 \end{lstlisting} \\
 \hline
 If statement & \begin{lstlisting}[nolol, numbers = none]
-int x := 7;
+i32 x := 7;
 if x > 3 && x < 9
 start
     println("Hello there")
@@ -230,7 +230,7 @@ finish if
 \hline
 \hline
 For loop & \begin{lstlisting}[nolol, numbers = none]
-for (mut int i in range(0, 10, 1))
+for (mut i32 i in range(0, 10, 1))
 start
     println(i)
 finish for
@@ -279,7 +279,11 @@ where it differs from Rust and Java.
 <variable declaration> $\rightarrow$ <mutability modifier> <type> <variable name>
                                      <assignment operator> <epression>; \\
 <for loop> $\rightarrow$ for (mut <type> <var name> in <expr>) <block begin>
-                         <statements> <block end>
+                         <statements> <block end> \\
+<function definition> $\rightarrow$ <visibility modifier> fn <function name>
+                                    (<parameter list>) -> <return type> <block begin>
+                                    <statements> <block end> \\
+<parameter list> $\rightarrow$ <type> <parameter name>, <parameter list> | $\epsilon$
 
 \subsection{Lexical Analysis}
 \subsubsection{Comments}
@@ -306,24 +310,285 @@ Tokens:
 \subsubsection{Keywords Different from Rust and Java}
 \textbf{New keywords:} range, model, specs, start, finish \\
 \textbf{Removed keywords:} use, class, match, do, private, byte, short, str,
-                           boolean, static, public, void, i32, float \\
+                           boolean, static, public, void, double, long, float,
+                           int, as \\
 
 \section{Type System}
+Rust-eze uses a strong static type system. This means that the Rust-eze compiler
+will catch type mismatch errors at compile time through early binding compile-time
+type checking.
 
 \subsection{Type Rules}
+The type rules for Rust-eze are as follows: \\
+S $\vdash$ e1 : T \\
+S $\vdash$ e2 : T \\
+T is a primitive type \\
+--------------------------- \\
+S $\vdash$ e1 := e2 : T \\
+\\
+S $\vdash$ e1 : T \\
+S $\vdash$ e2 : T \\
+T is a primitive type \\
+--------------------------- \\
+S $\vdash$ e1 == e2 : bool \\
+\\
+S $\vdash$ e1 : T \\
+S $\vdash$ e2 : T \\
+T is a primitive type \\
+--------------------------- \\
+S $\vdash$ e1 != e2 : bool \\
+\\
+S $\vdash$ e1 : T \\
+S $\vdash$ e2 : T \\
+T is a numeric primitive type \\
+--------------------------- \\
+S $\vdash$ e1 > e2 : bool \\
+\\
+S $\vdash$ e1 : T \\
+S $\vdash$ e2 : T \\
+T is a numeric primitive type \\
+--------------------------- \\
+S $\vdash$ e1 < e2 : bool \\
+\\
+S $\vdash$ e1 : T \\
+S $\vdash$ e2 : T \\
+T is a numeric primitive type \\
+--------------------------- \\
+S $\vdash$ e1 + e2 : T \\
+\\
+S $\vdash$ e1 : String \\
+S $\vdash$ e2 : String \\
+--------------------------- \\
+S $\vdash$ e1 + e2 : String
 
-\subsection{Value Types (Different from Rust and Java)}
 
-\subsection{Reference Types (Different from Rust and Java)}
+\subsection{Value Types}
+\begin{center}
+\begin{longtable}{|p{3in}|p{3in}|}
+    \hline
+    \textbf{Data Type} & \textbf{Description} \\
+    \hline
+    i8, i16, i32, i64 & Signed integers that store up to X bits, where X is the
+                        number after "i" in the data type. \\
+    \hline
+    u8, u16, u32, u64 & Unsigned integers that store up to X bits, where X is the
+                        number after "u" in the data type. \\
+    \hline
+    f32, f64 & Floating point numbers that store up to X bits, where X is the
+               number after "f" in the data type. \\
+    \hline
+    bool & Boolean value that can be either false or true. \\
+    \hline
+    char & Character value that stores the data for a single character. \\
+    \hline
+\end{longtable}
+\end{center}
+
+\subsection{Reference Types}
+\begin{center}
+\begin{longtable}{|p{3in}|p{3in}|}
+    \hline
+    \textbf{Data Type} & \textbf{Description} \\
+    \hline
+    String & A sequence of characters \\
+    \hline
+    Vec<T> & A dynamic, homogeneous array of values of type T, which can be any type. \\
+    \hline
+    Tuple & A collection of values of different types that is fixed in size. \\
+    \hline
+\end{longtable}
+\end{center}
 
 \section{Example Programs}
 \subsection{Caesar Cipher Encrypt}
+\begin{lstlisting}[caption = CaesarCipher.rez, frame = single, nolol]
+model CaesarCipher
+start
+    pub fn encrypt(&self, &String in_str, i32 shift_amt) -> String
+    start
+        i32 real_shift := shift_amt % 26;
+        Vec<char> out_vec := new Vec<char>();
 
+        for (mut i in range(0, in_str.len(), 1))
+        start
+            mut i8 cur_char := (i8) in_str.char_at(i);
+
+            if cur_char >= 97 && cur_char <= 122
+            start
+                cur_char := cur_char - 32;
+            finish if
+
+            if cur_char >= 65 && cur_char <= 90
+            start
+                cur_char := cur_char + real_shift;
+
+                mut i32 diff := cur_char - 90;
+                if diff > 0
+                start
+                    cur_char := 65 + diff - 1;
+                else
+                    diff := 65 - cur_char;
+
+                    if diff > 0
+                    start
+                        cur_char := 90 - diff + 1;
+                    finish if
+                finish if
+            finish if
+            
+            char final_char := (char) cur_char;
+            out_vec.push(final_char);
+        finish for
+
+        return out_vec.join("");
+    finish encrypt
+
+    pub fn main(Vec<String> args) -> void
+    start
+        CaesarCipher cipher := new CaesarCipher();
+
+        String x := "Kachow";
+        String y := cipher.encrypt(&x, 95);
+        println(x);
+        println(y);
+    finish main
+finish model
+\end{lstlisting}
 \subsection{Caesar Cipher Decrypt}
+\begin{lstlisting}[caption = CaesarCipher.rez (enhanced), frame = single, nolol]
+model CaesarCipher
+start
+    pub fn decrypt(&self, &String in_str, i32 shift_amt) -> String
+    start
+        return self.encrypt(in_str, -shift_amt);
+    finish encrypt
+
+    pub fn main(Vec<String> args) -> void
+    start
+        CaesarCipher cipher := new CaesarCipher();
+
+        String x := "Kachow";
+        String y := cipher.encrypt(&x, 95);
+        String z := cipher.decrypt(&y, 95);
+        println(x);
+        println(y);
+        println(z);
+    finish main
+finish model
+\end{lstlisting}
 
 \subsection{Factorial}
+\begin{lstlisting}[caption = FatorialProgram.rez, frame = single, nolol]
+model FactorialProgram
+start
+    pub fn factorial(&self, i32 num) -> i32
+    start
+        if num <= 0
+        start
+            return 1;
+        else
+            return num * self.factorial(num - 1);
+        finish if
+    finish factorial
 
-\subsection{Sort}
+    pub fn main(Vec<String> args) -> void
+    start
+        FactorialProgram fp := new FactorialProgram();
+        println(fp.factorial(5));
+        println(fp.factorial(0));
+    finish main
+finish model
+\end{lstlisting}
+
+\subsection{Quicksort}
+\begin{lstlisting}[caption = Sorts.rez, frame = single, nolol]
+import std.util.Random;
+
+model Sorts
+start
+
+    pub fn quick_sort(&self, &mut Vec<i32> data) -> void
+    start
+        self.quick_sort_with_indices(data, 0, data.len() - 1);
+    finish quick_sort
+
+    fn quick_sort_with_indices(&self, &mut Vec<i32> data, i32 start_index, i32 end_index) -> void
+    start
+        if start_index >= end_index
+        start
+            return;
+        finish if
+
+        mut i32 pivot_index := 0;
+
+        if end_index - start_index < 3
+        start
+            pivot_index := start_index;
+        else
+            Random ran := new Random();
+
+            i32 pivot_choice_1 := ran.randInt(start_index, end_index + 1);
+            mut i32 pivot_choice_2 := ran.randInt(start_index, end_index + 1);
+            while pivot_choice_2 == pivot_choice_1
+            start
+                pivot_choice_2 := ran.randInt(start_index, end_index + 1);
+            finish while
+
+            mut pivot_choice_3 := ran.randInt(start_index, end_index + 1);
+            while pivot_choice_3 == pivot_choice_1 && pivot_choice_3 == pivot_choice_2
+            start
+                pivot_choice_3 := ran.randInt(start_index, end_index + 1);
+            finish while
+
+            if *data[pivot_choice_1] <= *data[pivot_choice_2] && *data[pivot_choice_1] >= *data[pivot_choice_3]
+            start
+                pivot_index := pivot_choice_1;
+            else if *data[pivot_choice_1] <= *data[pivot_choice_3] && *data[pivot_choice_1] >= *data[pivot_choice_2]
+                pivot_index := pivot_choice_1;
+            else if *data[pivot_choice_2] <= *data[pivot_choice_1] && *data[pivot_choice_2] >= *data[pivot_choice_3]
+                pivot_index := pivot_choice_2;
+            else if *data[pivot_choice_2] <= *data[pivot_choice_3] && *data[pivot_choice_2] >= *data[pivot_choice_1]
+                pivot_index := pivot_choice_2;
+            else
+                pivot_index := pivot_choice_3;
+            finish if
+        finish if
+        
+        i32 partition_out := self.partition(data, start, end, pivot_index);
+
+        self.quick_sort_with_indices(data, start, partition_out - 1);
+        self.quick_sort_with_indices(data, partition_out + 1, end);
+
+    finish quick_sort_with_indices
+
+    fn partition(&self, &mut Vec<i32> data, i32 start, i32 end, i32 pivot_index) -> i32
+    start
+        mut i32 pivot := *data[pivot_index];
+        *data[pivot_index] := *data[end];
+        *data[end] := pivot;
+
+        mut i32 last_low_partition_index := start - 1;
+
+        for mut i in range(start, end, 1)
+        start
+            if *data[i] < pivot
+            start
+                last_low_partition_index := last_low_partition_index + 1;
+
+                i32 temp := *data[i];
+                *data[i] := *data[last_low_partition_index];
+                *data[last_low_partition_index] := temp;
+            finish if
+        finish for
+
+        *data[end] := *data[last_low_partition_index + 1];
+        *data[last_low_partiton_index + 1] := pivot;
+
+        return last_low_partition_index + 1;
+    finish partition
+
+finish model
+\end{lstlisting}
 
 \subsection{Program 1}
 
