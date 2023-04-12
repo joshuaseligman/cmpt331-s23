@@ -32,14 +32,51 @@
 \definecolor{mygreen}{rgb}{0,0.6,0}
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
 \definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+% Define Language
+\lstdefinelanguage{rust-eze}
+{
+  % list of keywords
+  morekeywords=[1]{
+      import,
+      if,
+      while,
+      for,
+      specs,
+      model,
+      start,
+      finish,
+      extends,
+      ext,
+      fn
+  },
+  morekeywords=[2]{
+    mut,
+    i32,
+    bool,
+    String,
+    Vec,
+    Tuple,
+    true,
+    false,
+    char
+  },
+  keywordstyle=[1]\color{blue},
+  keywordstyle=[2]\color{red},
+  sensitive=true,
+  morecomment=[l]{//}, % l is for line comment
+  morecomment=[s]{/*}{*/}, % s is for start and end delimiter
+  morestring=[b]" % defines that strings are enclosed in double quotes
+}
+
 \lstset{
+  language={rust-eze},
   backgroundcolor=\color{white},   % choose the background color
   basicstyle=\footnotesize,        % size of fonts used for the code
   breaklines=true,                 % automatic line breaking only at whitespace
   captionpos=b,                    % sets the caption-position to bottom
   commentstyle=\color{mygreen},    % comment style
   escapeinside={\%*}{*},          % if you want to add LaTeX within your code
-  keywordstyle=\color{blue},       % keyword style
   stringstyle=\color{mymauve},     % string literal style
 }
 
