@@ -114,8 +114,8 @@ The key organizational concepts in Rust-eze are as follows:
     \item Every file contains a single \textbf{model} (equivalent to a class),
           which should be the same name as the file minus the \textit{.rez} file
           extension.
-    \item All instance members are by default private unless they are declared
-          with the \textbf{pub} keyword.
+    \item All instance members default to being in the interior unless they 
+          are declared with the \textbf{ext} keyword to note their exterior presence.
     \item Instance variables are declared within the \textbf{specs} block and
           must be initialized within the constructor, which is a function that
           is the same name as the model.
@@ -130,7 +130,7 @@ The program below defines a new \textbf{model} called Lightning that contains
 integer called \textit{age}, and a private integer called \textit{miles}. Each
 of these instance variables are initialized within the constructor. Each
 Lightning has 2 member functions: \textit{drive} and \textit{say\_it}.
-\textit{drive} is a public method as it is defined with the \textbf{pub}
+\textit{drive} is an exterior method as it is defined with the \textbf{ext}
 keyword. Since it modifies an instance variable, it must take it a mutable
 reference to the object in addition to the number of miles being driven. Inside
 of the method, a new local variable called \textit{new\_mileage} is declared
@@ -144,25 +144,25 @@ model Lightning
 start
     specs
     start
-        pub String name;
-        pub i32 age;
+        ext String name;
+        ext i32 age;
         int miles;
     finish specs
 
-    pub fn Lightning(String my_name, i32 my_age)
+    ext fn Lightning(String my_name, i32 my_age)
     start
         self.name := my_name;
         self.age := my_age;
         self.miles := 0;
     finish Lightning
 
-    pub fn drive(&mut self, i32 num_miles) -> void
+    ext fn drive(&mut self, i32 num_miles) -> void
     start
         i32 new_mileage := self.miles + num_miles;
         self.miles := new_mileage;
     finish drive
 
-    pub fn say_it(&self) -> void
+    ext fn say_it(&self) -> void
     start
         println("Kachow!");
     finish say_it
@@ -181,7 +181,7 @@ import garage.Lightning;
 
 model Main
 start
-    pub fn main(Vec<String> args) -> void
+    ext fn main(Vec<String> args) -> void
     start
         mut Lightning the_lightning := new Lightning("McQueen", 17);
         println(the_lightning.name);
@@ -202,9 +202,9 @@ for details.
 
 \subsection{Visibility}
 In Rust-eze, visibility of methods and instance variables is defined as either
-public or private. Everything is default private unless explicitly stated to be
-public. Once a variable or method is public, it may be accessed outside of the
-model in which it is defined.
+interior (private) or exterior (public). Everything is part of the interior unless
+explicitly stated to be in the exterior. Once a variable or method is public,
+it may be accessed outside of the model in which it is defined.
 
 \subsection{Statements Differing from Rust and Java}
 \begin{center}
@@ -228,12 +228,20 @@ else
 finish if
 \end{lstlisting} \\
 \hline
-\hline
 For loop & \begin{lstlisting}[nolol, numbers = none]
-for (mut i32 i in range(0, 10, 1))
+for mut i32 i in range(0, 10, 1)
 start
     println(i)
 finish for
+\end{lstlisting} \\
+\hline
+While loop & \begin{lstlisting}[nolol, numbers = none]
+mut i32 i := 0;
+while i < 10
+start
+    println(i);
+    i := i + 1;
+finish while
 \end{lstlisting} \\
 \hline
 \end{longtable}
@@ -267,23 +275,25 @@ where it differs from Rust and Java.
 <block begin> $\rightarrow$ start \\
 <block end> $\rightarrow$ finish \\
 <print> $\rightarrow$ println \\
-<visibility modifier> $\rightarrow$ pub | $\epsilon$ \\
+<visibility modifier> $\rightarrow$ ext | $\epsilon$ \\
 <mutability modifier> $\rightarrow$ mut | $\epsilon$ \\
 
 \subsubsection{Syntactic ("parse") grammar where different from Rust and Java}
 <model definition> $\rightarrow$ model <model name> <parent declaration> 
-                                 <block begin> <statements> <block end> <model name> \\
+                                 <block begin> <statements> <block end> model \\
 <parent declaration> $\rightarrow$ extends <parent model name> | $\epsilon$ \\
-<specs definition> $\rightarrow$ specs <block begin> <spec definition> <block end> \\
+<specs definition> $\rightarrow$ specs <block begin> <spec definition> <block end> specs \\
 <spec definition> $\rightarrow$ <visibility modifier> <type> <spec name>;
                                 <spec definition> | $\epsilon$ \\
 <variable declaration> $\rightarrow$ <mutability modifier> <type> <variable name>
                                      <assignment operator> <epression>; \\
-<for loop> $\rightarrow$ for (mut <type> <var name> in <expr>) <block begin>
-                         <statements> <block end> \\
+<if statement> $\rightarrow$ if <condition> <block begin> <statements> else <statements> <block end> if \\
+<for loop> $\rightarrow$ for mut <type> <var name> in <expr> <block begin>
+                         <statements> <block end> for \\
+<while loop> $\rightarrow$ while <condition> <block begin> <statements> <block end> while \\
 <function definition> $\rightarrow$ <visibility modifier> fn <function name>
                                     (<parameter list>) -> <return type> <block begin>
-                                    <statements> <block end> \\
+                                    <statements> <block end> <function name>\\
 <parameter list> $\rightarrow$ <type> <parameter name>, <parameter list> | $\epsilon$
 
 \subsection{Lexical Analysis}
@@ -312,7 +322,7 @@ Tokens:
 \textbf{New keywords:} range, model, specs, start, finish \\
 \textbf{Removed keywords:} use, class, match, do, private, byte, short, str,
                            boolean, static, public, double, long, float,
-                           int, as \\
+                           int, as, pub \\
 
 \section{Type System}
 Rust-eze uses a strong static type system. This means that the Rust-eze compiler
@@ -320,7 +330,7 @@ will catch type mismatch errors at compile time through early binding compile-ti
 type checking.
 
 \subsection{Type Rules}
-The type rules for Rust-eze are as follows: \\
+The type rules for Rust-eze are as follows: \\ \\
 S $\vdash$ e1 : T \\
 S $\vdash$ e2 : T \\
 T is a primitive type \\
@@ -392,10 +402,22 @@ S $\vdash$ e1 + e2 : String
     \textbf{Data Type} & \textbf{Description} \\
     \hline
     String & A sequence of characters \\
+    & Example: \begin{lstlisting}[nolol, numbers = none]
+    String x := "hello";
+    \end{lstlisting} \\
     \hline
     Vec<T> & A dynamic, homogeneous array of values of type T, which can be any type. \\
+    & Example: \begin{lstlisting}[nolol, numbers = none]
+    mut Vec<i32> nums := new Vec<i32>(3);
+    nums[0] := 0;
+    nums[1] := 0;
+    nums[2] := 7;
+    \end{lstlisting} \\
     \hline
     Tuple & A collection of values of different types that is fixed in size. \\
+    & Example: \begin{lstlisting}[nolol, numbers = none]
+    Tuple<i32, bool, i32> my_tuple := (7, false, 3);
+    \end{lstlisting} \\
     \hline
 \end{longtable}
 \end{center}
@@ -407,14 +429,14 @@ S $\vdash$ e1 + e2 : String
 model CaesarCipher
 start
     // Encryt a string based on the shift amount
-    pub fn encrypt(&self, &String in_str, i32 shift_amt) -> String
+    ext fn encrypt(&self, &String in_str, i32 shift_amt) -> String
     start
         // Get the real shift amount and create a new vector of characters
         i32 real_shift := shift_amt % 26;
         Vec<char> out_vec := new Vec<char>();
 
         // Loop through the entire string
-        for (mut i32 i in range(0, in_str.len(), 1))
+        for mut i32 i in range(0, in_str.len(), 1)
         start
             
             // Get the character at the given index as an integer
@@ -462,7 +484,7 @@ start
         return out_vec.join("");
     finish encrypt
 
-    pub fn main(Vec<String> args) -> void
+    ext fn main(Vec<String> args) -> void
     start
         CaesarCipher cipher := new CaesarCipher();
 
@@ -484,14 +506,14 @@ finish model
 model CaesarCipher
 start
     // Returns a decrypted string based on the shift amount
-    pub fn decrypt(&self, &String in_str, i32 shift_amt) -> String
+    ext fn decrypt(&self, &String in_str, i32 shift_amt) -> String
     start
         // Decrypt is the same as encrypt with negative shift amount
         // Encrypt is defined in Section 4.1
         return self.encrypt(in_str, -shift_amt);
     finish encrypt
 
-    pub fn main(Vec<String> args) -> void
+    ext fn main(Vec<String> args) -> void
     start
         CaesarCipher cipher := new CaesarCipher();
 
@@ -514,7 +536,7 @@ finish model
 model FactorialProgram
 start
     // Return the result of factorial(num)
-    pub fn factorial(&self, i32 num) -> i32
+    ext fn factorial(&self, i32 num) -> i32
     start
         if num <= 0
         start
@@ -527,7 +549,7 @@ start
         finish if
     finish factorial
 
-    pub fn main(Vec<String> args) -> void
+    ext fn main(Vec<String> args) -> void
     start
         FactorialProgram fp := new FactorialProgram();
         // Should be 120
@@ -549,7 +571,7 @@ import std.util.Random;
 model SortsAndShuffles
 start
     // This is the wrapper function for the quicksort implementation
-    pub fn quicksort(&self, &mut Vec<i32> data) -> void
+    ext fn quicksort(&self, &mut Vec<i32> data) -> void
     start
         // Call quicksort on the entire vector
         self.quicksort_with_indices(data, 0, data.len() - 1);
@@ -657,13 +679,13 @@ start
     finish partition
 
     // Knuth shuffle
-    pub fn knuth_shuffle(&self, &mut Vec<i32> data) -> void
+    ext fn knuth_shuffle(&self, &mut Vec<i32> data) -> void
     start
         // Create the random object
         Random ran := new Random();
 
         // Iterate through the entire array
-        for (mut i32 i in range(0, *data.len(), 1))
+        for mut i32 i in range(0, *data.len(), 1)
         start
             // Get a random index
             i32 swap_index := ran.randInt(0, *data.len()));
@@ -676,12 +698,12 @@ start
 
     finish knuth_shuffle
 
-    pub fn main(Vec<String> args) -> void
+    ext fn main(Vec<String> args) -> void
     start
         // Initialize a vector with initial capacity for 10 elements
         mut Vec<i32> my_arr := new Vec<i32>(10);
         // Fill the vector with values 0 - 9
-        for (mut i32 i in range(0, 10, 1))
+        for mut i32 i in range(0, 10, 1)
         start
             my_arr[i] := i;
         finish for
@@ -708,10 +730,10 @@ import std.util.Random;
 model SortsAndShuffles
 start
     // Create a public function for doing a selection sort
-    pub fn selection_sort(&self, &mut Vec<i32> data>) -> void
+    ext fn selection_sort(&self, &mut Vec<i32> data>) -> void
         // Loop through all but the last element because an array of length 1
         // is already sorted
-        for (mut i32 i in range(0, *data.len() - 1, 1))
+        for mut i32 i in range(0, *data.len() - 1, 1)
         start
             // Assume first element is smallest
             // Can directly assign here because i32 is a value type, so the value
@@ -719,7 +741,7 @@ start
             mut i32 smallest_index := i;
             
             // Go through the rest of the array
-            for (mut i32 j in range(i + 1, *data.len(), 1))
+            for mut i32 j in range(i + 1, *data.len(), 1)
             start
                 // If we have a smaller element, save the new lower index
                 if *data[smallest_index] > *data[j]
@@ -735,11 +757,11 @@ start
         finish for
     finish selection_sort
 
-    pub fn main(Vec<String> args) -> void
+    ext fn main(Vec<String> args) -> void
     start
         // From Section 4.4
         mut Vec<i32> my_arr := new Vec<i32>(10);
-        for (mut i32 i in range(0, 10, 1))
+        for mut i32 i in range(0, 10, 1)
         start
             my_arr[i] := i;
         finish for
@@ -764,11 +786,11 @@ start
     specs
     start
         // Every owner has a name
-        pub String name;
+        ext String name;
     finish specs
 
     // Define a new owner with the given name
-    pub fn Owner(String my_name)
+    ext fn Owner(String my_name)
     start
         self.name := my_name;
     finish Owner
@@ -782,15 +804,15 @@ model Transformer
 start
     specs
     start
-        pub String name;
-        pub String car_name;
+        ext String name;
+        ext String car_name;
         i32 power;
         &Transformer leader;
         &Owner owner;
     finish specs
 
     // Define a constructor for the Transformer
-    pub fn Transformer(String my_name, String my_car_name, i32 power)
+    ext fn Transformer(String my_name, String my_car_name, i32 power)
     start
         self.name := my_name;
         self.car_name := my_car_name;
@@ -806,7 +828,7 @@ start
     // > 0 means win
     // < 0 means loss
     // == 0 means draw
-    pub fn attack(&self, &Transformer oponent) -> i32
+    ext fn attack(&self, &Transformer oponent) -> i32
     start
         mut i32 power_diff := self.power - *oppenent.get_power();
         
@@ -821,31 +843,31 @@ start
     finish attack
 
     // Increases the power of the transformer by the factor
-    pub fn supercharge(&mut self, i32 factor)
+    ext fn supercharge(&mut self, i32 factor)
     start
         self.power := self.power * factor;
     finish supercharge
 
     // Define a getter for the power spec
-    pub fn get_power(&self) -> i32
+    ext fn get_power(&self) -> i32
     start
         return self.power;
     finish get_power
 
     // Define a getter for the leader spec
-    pub fn get_leader(&self) -> &Transformer
+    ext fn get_leader(&self) -> &Transformer
     start
         return self.leader;
     finish get_leader
 
     // Define a setter for the leader
-    pub fn set_leader(&mut self, &Transformer new_leader)
+    ext fn set_leader(&mut self, &Transformer new_leader)
     start
         self.leader := new_leader;
     finish set_leader
 
     // Define a setter for the owner
-    pub fn set_owner(&mut self, &Owner new_owner)
+    ext fn set_owner(&mut self, &Owner new_owner)
     start
         self.owner := new_owner;
     finish set_owner
@@ -858,7 +880,7 @@ import garage.Transformer;
 // Autobot is a subclass/model of Transformer
 model Autobot extends Transformer
 start
-    pub fn Autobot(String my_name, String my_car_name, i32 power)
+    ext fn Autobot(String my_name, String my_car_name, i32 power)
     start
         // All specs are initialized in the super constructor, so nothing
         // needs to be explicitly initialized here
@@ -866,7 +888,7 @@ start
     finish Autobot
 
     // Function to "roll out"
-    pub fn roll_out(&self)
+    ext fn roll_out(&self)
     start
         println("Roll out: " + self.name);
     finish roll_out
@@ -880,7 +902,7 @@ import garage.Autobot;
 
 model MainTransformers
 start
-    pub fn main(Vec<String> args) -> void
+    ext fn main(Vec<String> args) -> void
     start
         // Create a new autobot for Bumblebee
         mut Autobot bumblebee := new Autobot("Bumblebee", "Chevy Camaro", 500);
