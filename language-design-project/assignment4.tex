@@ -48,7 +48,8 @@
       finish,
       extends,
       ext,
-      fn
+      fn,
+      else
   },
   morekeywords=[2]{
     mut,
@@ -59,7 +60,10 @@
     Tuple,
     true,
     false,
-    char
+    char,
+    self,
+    void,
+    new
   },
   keywordstyle=[1]\color{blue},
   keywordstyle=[2]\color{red},
@@ -138,7 +142,7 @@ Rust-eze does, however, differ from its parent languages in the following ways:
 \begin{lstlisting}[caption = HelloWorld.rez, frame = single, nolol]
 model HelloWorld
 start
-    pub fn main(Vec<String> args) -> void
+    ext fn main(Vec<String> args) -> void
     start
         println("Hello world!");
     finish main
@@ -183,7 +187,7 @@ start
     start
         ext String name;
         ext i32 age;
-        int miles;
+        i32 miles;
     finish specs
 
     ext fn Lightning(String my_name, i32 my_age)
@@ -317,20 +321,22 @@ where it differs from Rust and Java.
 
 \subsubsection{Syntactic ("parse") grammar where different from Rust and Java}
 <model definition> $\rightarrow$ model <model name> <parent declaration> 
-                                 <block begin> <statements> <block end> model \\
+                                 <block begin> <statements> \\
+                                 \hspace*{3.5cm}<block end> model \\
 <parent declaration> $\rightarrow$ extends <parent model name> | $\epsilon$ \\
 <specs definition> $\rightarrow$ specs <block begin> <spec definition> <block end> specs \\
 <spec definition> $\rightarrow$ <visibility modifier> <type> <spec name>;
                                 <spec definition> | $\epsilon$ \\
 <variable declaration> $\rightarrow$ <mutability modifier> <type> <variable name>
-                                     <assignment operator> <epression>; \\
+                                     <assignment operator>\\
+                                     \hspace*{4.2cm}<expression>; \\
 <if statement> $\rightarrow$ if <condition> <block begin> <statements> else <statements> <block end> if \\
 <for loop> $\rightarrow$ for mut <type> <var name> in <expr> <block begin>
                          <statements> <block end> for \\
 <while loop> $\rightarrow$ while <condition> <block begin> <statements> <block end> while \\
 <function definition> $\rightarrow$ <visibility modifier> fn <function name>
-                                    (<parameter list>) -> <return type> <block begin>
-                                    <statements> <block end> <function name>\\
+                                    (<parameter list>) -> <return type> \\
+                                    \hspace*{4cm}<block begin> <statements> <block end> <function name>\\
 <parameter list> $\rightarrow$ <type> <parameter name>, <parameter list> | $\epsilon$
 
 \subsection{Lexical Analysis}
@@ -356,10 +362,10 @@ Tokens:
 \end{itemize}
 
 \subsubsection{Keywords Different from Rust and Java}
-\textbf{New keywords:} range, model, specs, start, finish \\
+\textbf{New keywords:} range, model, specs, start, finish, ext \\
 \textbf{Removed keywords:} use, class, match, do, private, byte, short, str,
                            boolean, static, public, double, long, float,
-                           int, as, pub \\
+                           int, as, pub, impl, struct \\
 
 \section{Type System}
 Rust-eze uses a strong static type system. This means that the Rust-eze compiler
@@ -425,7 +431,7 @@ S $\vdash$ e1 + e2 : String
     f32, f64 & Floating point numbers that store up to X bits, where X is the
                number after "f" in the data type. \\
     \hline
-    bool & Boolean value that can be either false or true. \\
+    bool & Boolean value that can be either \textbf{false} or \textbf{true}. \\
     \hline
     char & Character value that stores the data for a single character. \\
     \hline
@@ -671,17 +677,17 @@ start
         finish if
         
         // Perform the partition
-        i32 partition_out := self.partition(data, start, end, pivot_index);
+        i32 partition_out := self.partition(data, start_index, end_index, pivot_index);
 
         // Perform quicksort on the 2 sides of the partition
-        self.quicksort_with_indices(data, start, partition_out - 1);
-        self.quicksort_with_indices(data, partition_out + 1, end);
+        self.quicksort_with_indices(data, start_index, partition_out - 1);
+        self.quicksort_with_indices(data, partition_out + 1, end_index);
 
     finish quicksort_with_indices
 
     // Delare a private function for sorting the array that returns the index
     // for the partition
-    fn partition(&self, &mut Vec<i32> data, i32 start, i32 end, i32 pivot_index) -> i32
+    fn partition(&self, &mut Vec<i32> data, i32 start_index, i32 end_index, i32 pivot_index) -> i32
     start
         // Move the pivot to the end of the array
         i32 pivot := *data[pivot_index];
@@ -689,11 +695,11 @@ start
         *data[end] := pivot;
 
         // Keep track of where the low partition starts
-        mut i32 last_low_partition_index := start - 1;
+        mut i32 last_low_partition_index := start_index - 1;
 
         // Go through the sub array, excluding the last index because the pivot
         // value is in the end index
-        for mut i in range(start, end, 1)
+        for mut i in range(start_index, end_index, 1)
         start
             if *data[i] < pivot
             start
