@@ -49,7 +49,8 @@
       extends,
       ext,
       fn,
-      else
+      else,
+      return
   },
   morekeywords=[2]{
     mut,
@@ -100,6 +101,12 @@
 \pagenumbering{arabic}
 \begin{document}
 \maketitle
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width = 10cm]{lightning_mcqueen.png}
+\end{figure}
+
 \newpage
 
 \section{Introduction}
@@ -122,8 +129,8 @@ Rust-eze does, however, differ from its parent languages in the following ways:
           representation of Rust-eze programs.
     \item Similar to Rust, all instance variables must be initialized within the
           constructor.
-    \item Similar to both parent languages, all classes belong to a module
-          (Java package). However, more similar to Rust, the module is inferred
+    \item Similar to both parent languages, all models (classes) belong to a garage
+          (Java package). However, more similar to Rust, the garage is inferred
           based on the relative file location and does not have to be explicitly
           defined within the file.
 \end{enumerate}
@@ -133,7 +140,7 @@ Rust-eze does, however, differ from its parent languages in the following ways:
 \subsection{Genealogy}
 \begin{figure}[ht]
     \centering
-    \includegraphics[height=6.5in]{genealogy}
+    \includegraphics[height=6.5in]{genealogy.jpg}
 \end{figure}
 
 \newpage
@@ -155,8 +162,8 @@ The key organizational concepts in Rust-eze are as follows:
     \item Every file contains a single \textbf{model} (equivalent to a class),
           which should be the same name as the file minus the \textit{.rez} file
           extension.
-    \item All instance members default to being in the interior unless they 
-          are declared with the \textbf{ext} keyword to note their exterior presence.
+      \item All instance members default to being in the interior (private) unless they 
+          are declared with the \textbf{ext} keyword to note their exterior (public) presence.
     \item Instance variables are declared within the \textbf{specs} block and
           must be initialized within the constructor, which is a function that
           is the same name as the model.
@@ -167,8 +174,8 @@ The key organizational concepts in Rust-eze are as follows:
 \end{enumerate}
 
 The program below defines a new \textbf{model} called Lightning that contains
-3 instance variables: a String that is public called \textit{name}, a public
-integer called \textit{age}, and a private integer called \textit{miles}. Each
+3 instance variables: an exterior String called \textit{name}, an exterior
+integer called \textit{age}, and an interioir integer called \textit{miles}. Each
 of these instance variables are initialized within the constructor. Each
 Lightning has 2 member functions: \textit{drive} and \textit{say\_it}.
 \textit{drive} is an exterior method as it is defined with the \textbf{ext}
@@ -362,7 +369,7 @@ Tokens:
 \end{itemize}
 
 \subsubsection{Keywords Different from Rust and Java}
-\textbf{New keywords:} range, model, specs, start, finish, ext \\
+\textbf{New keywords:} range, model, specs, start, finish, ext, Tuple \\
 \textbf{Removed keywords:} use, class, match, do, private, byte, short, str,
                            boolean, static, public, double, long, float,
                            int, as, pub, impl, struct \\
@@ -444,22 +451,25 @@ S $\vdash$ e1 + e2 : String
     \hline
     \textbf{Data Type} & \textbf{Description} \\
     \hline
-    String & A sequence of characters \\
+    String & A sequence of characters. \\
     & Example: \begin{lstlisting}[nolol, numbers = none]
     String x := "hello";
     \end{lstlisting} \\
     \hline
     Vec<T> & A dynamic, homogeneous array of values of type T, which can be any type. \\
     & Example: \begin{lstlisting}[nolol, numbers = none]
-    mut Vec<i32> nums := new Vec<i32>(3);
-    nums[0] := 0;
-    nums[1] := 0;
-    nums[2] := 7;
+    Vec<i32> nums1 := [0, 0, 7];
+    mut Vec<i32> nums2 := new Vec<i32>(2);
+    nums2[0] := 42;
+    nums2[1] := 99;
     \end{lstlisting} \\
     \hline
     Tuple & A collection of values of different types that is fixed in size. \\
     & Example: \begin{lstlisting}[nolol, numbers = none]
     Tuple<i32, bool, i32> my_tuple := (7, false, 3);
+    mut Tuple<String, i32> the_tuple := new Tuple<String, i32>();
+    the_tuple.0 := "jOSh";
+    the_tuple.1 := 2;
     \end{lstlisting} \\
     \hline
 \end{longtable}
