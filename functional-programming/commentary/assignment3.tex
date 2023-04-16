@@ -131,7 +131,7 @@ can be the result of other math function calls. Similar to how a compiler works,
 will be used by other functions. Hovever, I had to learn this idea the hard way when I did (- 90 (+ diff 1) instead of (+ (- 90 diff) 1)) to represent the formula
 90 - diff + 1. Naturally, I wanted to represent the subtraction first, so I naively placed it in the outermost function call, which was a really bad idea.
 Although minor, this change in operation order screwed up my program for a while and my friends had to remind me of the order of operations for why the 2 
-code chunks weere different from each other. This syntax for specifying the order of operations for a formula does not make logical sense as the code no 
+code chunks were different from each other. This syntax for specifying the order of operations for a formula does not make logical sense as the code no 
 longer reads from left to right. Rather, one has to read it middle out (sadly not related to middle out compression in the TV show Silicon Valley) and do a depth-first
 in-order traversal of a mini syntax tree in their head to be able to actually understand what the code is doing. This amount of brain damage is completely overkill as
 one already has to treat functional logic completely differently from procedural logic, and this math function ordering does not help LISP in being user-friendly.
@@ -181,7 +181,7 @@ Since I was already in the mindset to hack a solution together, I put a Band Aid
 twice. I originally did not care about this function because it worked, but it did bother me because I knew that there was no way a programming language would
 make me write a negate function just to be able to represent a negative number. Similar to the previous problem with the hacky map function, I played around in 
 ML's interactive mode for a couple minutes the next day to find out that it uses $\sim$ instead of - to represent negative values. Although this is a tiny quirk of ML, 
-it really bothered me because the writability was harmed due to the language not able to fully represent standand mathematical notation. Fortunately, this did not 
+it really bothered me because the writability was harmed due to the language not able to fully represent standard mathematical notation. Fortunately, this did not 
 cause me nearly as much brain dammage as the order of operations in LISP or trying to force multiple arguments into a map function in ML, but it was something to note
 because it was initially a key part in my program until I fixed it for clarity in the code.
 \\ \\
