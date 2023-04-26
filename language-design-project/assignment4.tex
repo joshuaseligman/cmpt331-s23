@@ -112,13 +112,13 @@
 \section{Introduction}
 Rust-eze is modern, object-oriented, type-safe programming language. It inherits
 the best parts of Rust and Java to provide a fast and memory-safe languge for
-the object-oriented paradim, while also bringing in some influence from Pascal.
+the object-oriented paradim, while also bringing in some syntactic influence from Pascal.
 Rust-eze does, however, differ from its parent languages in the following ways:
 \begin{enumerate}
-    \item Rust-eze is an object-oriented language, which means there are no
-          structs and only classes/objects and enums.
-    \item Like Java, but unlike Rust, Rust-eze is statically typed, so all
-          variables must be explicitly defined with their respective types.
+    \item Rust-eze is an object-oriented language, which, like Java, means there
+          are no structs and only classes/objects and enums.
+    \item Like Java, but unlike Rust, Rust-eze requires that all
+          variables be explicitly defined with their respective types.
     \item Similar to Rust, but unlike Java, Rust-eze uses a system of borrowing
           and ownership so only one variable can point to a given place in
           memory at a time. This prevents the need for a garbage collector as
@@ -175,7 +175,7 @@ The key organizational concepts in Rust-eze are as follows:
 
 The program below defines a new \textbf{model} called Lightning that contains
 3 instance variables: an exterior String called \textit{name}, an exterior
-integer called \textit{age}, and an interioir integer called \textit{miles}. Each
+integer called \textit{age}, and an interior integer called \textit{miles}. Each
 of these instance variables are initialized within the constructor. Each
 Lightning has 2 member functions: \textit{drive} and \textit{say\_it}.
 \textit{drive} is an exterior method as it is defined with the \textbf{ext}
@@ -220,7 +220,7 @@ finish model
 Next, the Lightning model is imported to a new file called \textit{Main.rez}
 and is initialized within the main method. Since the \textbf{mut} keyword is
 used, we can use the mutable method of \textit{drive} on the new object as well
-as directly modify its public instance variables. After \textit{the\_lightning}'s
+as directly modify its exterior specs. After \textit{the\_lightning}'s
 name is printed, we call its \textit{say\_it} method and then call the
 \textit{drive} method with an input of 42 miles to increase the object's mileage.
 
@@ -309,9 +309,9 @@ Conceptually speaking, a program is compiled using five steps:
     \item Syntactic analysis (parsing), which translates the stream of tokens
           into a concrete syntax tree (CST).
     \item Semantic analysis, which converts the CST into an abstract syntax tree
-          (AST) and is passed to the semantic analyzer for type checking and the 
-          borrow checker to make sure all variables referenced are active owners
-          of data.
+          (AST) and is passed to the semantic analyzer for scope and type
+          checking and the borrow checker to make sure all variables
+          referenced are active owners of data.
     \item Code generation, which converts the AST into executable code for the
           target platform and CPU architecture.
 \end{enumerate}
@@ -493,8 +493,8 @@ start
         start
             
             // Get the character at the given index as an integer
-            // (i8) casts the expression on the right of it to be an i8
-            mut i8 cur_char := (i8) in_str.char_at(i);
+            // (u8) casts the expression on the right of it to be an u8
+            mut u8 cur_char := (u8) in_str.char_at(i);
 
             if cur_char >= 97 && cur_char <= 122
             start
