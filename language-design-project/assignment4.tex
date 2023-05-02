@@ -55,6 +55,7 @@
   morekeywords=[2]{
     mut,
     i32,
+    u8,
     bool,
     String,
     Vec,
@@ -116,7 +117,7 @@ the object-oriented paradim, while also bringing in some syntactic influence fro
 Rust-eze does, however, differ from its parent languages in the following ways:
 \begin{enumerate}
     \item Rust-eze is an object-oriented language, which, like Java, means there
-          are no structs and only classes/objects and enums.
+          are no structs and only classes/objects.
     \item Like Java, but unlike Rust, Rust-eze requires that all
           variables be explicitly defined with their respective types.
     \item Similar to Rust, but unlike Java, Rust-eze uses a system of borrowing
@@ -783,7 +784,7 @@ import std.util.Random;
 model SortsAndShuffles
 start
     // Create a public function for doing a selection sort
-    ext fn selection_sort(&self, &mut Vec<i32> data>) -> void
+    ext fn selection_sort(&self, &mut Vec<i32> data) -> void
         // Loop through all but the last element because an array of length 1
         // is already sorted
         for mut i32 i in range(0, *data.len() - 1, 1)
