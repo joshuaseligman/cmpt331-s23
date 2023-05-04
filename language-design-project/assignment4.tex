@@ -673,14 +673,14 @@ start
             finish while
 
             // Get the median of the pivots and set the appropriate pivot index
-            if *data[pivot_choice_1] <= *data[pivot_choice_2] && *data[pivot_choice_1] >= *data[pivot_choice_3]
+            if data[pivot_choice_1] <= data[pivot_choice_2] && data[pivot_choice_1] >= data[pivot_choice_3]
             start
                 pivot_index := pivot_choice_1;
-            else if *data[pivot_choice_1] <= *data[pivot_choice_3] && *data[pivot_choice_1] >= *data[pivot_choice_2]
+            else if data[pivot_choice_1] <= data[pivot_choice_3] && data[pivot_choice_1] >= data[pivot_choice_2]
                 pivot_index := pivot_choice_1;
-            else if *data[pivot_choice_2] <= *data[pivot_choice_1] && *data[pivot_choice_2] >= *data[pivot_choice_3]
+            else if data[pivot_choice_2] <= data[pivot_choice_1] && data[pivot_choice_2] >= data[pivot_choice_3]
                 pivot_index := pivot_choice_2;
-            else if *data[pivot_choice_2] <= *data[pivot_choice_3] && *data[pivot_choice_2] >= *data[pivot_choice_1]
+            else if data[pivot_choice_2] <= data[pivot_choice_3] && data[pivot_choice_2] >= data[pivot_choice_1]
                 pivot_index := pivot_choice_2;
             else
                 pivot_index := pivot_choice_3;
@@ -701,9 +701,9 @@ start
     fn partition(&self, &mut Vec<i32> data, i32 start_index, i32 end_index, i32 pivot_index) -> i32
     start
         // Move the pivot to the end of the array
-        i32 pivot := *data[pivot_index];
-        *data[pivot_index] := *data[end];
-        *data[end] := pivot;
+        i32 pivot := data[pivot_index];
+        data[pivot_index] := data[end];
+        data[end] := pivot;
 
         // Keep track of where the low partition starts
         mut i32 last_low_partition_index := start_index - 1;
@@ -712,21 +712,21 @@ start
         // value is in the end index
         for mut i in range(start_index, end_index, 1)
         start
-            if *data[i] < pivot
+            if data[i] < pivot
             start
                 // Make space for the low value
                 last_low_partition_index := last_low_partition_index + 1;
 
                 // Move it to its new spot in the array
-                i32 temp := *data[i];
-                *data[i] := *data[last_low_partition_index];
-                *data[last_low_partition_index] := temp;
+                i32 temp := data[i];
+                data[i] := data[last_low_partition_index];
+                data[last_low_partition_index] := temp;
             finish if
         finish for
 
         // Move the pivot to the appropriate location
-        *data[end] := *data[last_low_partition_index + 1];
-        *data[last_low_partiton_index + 1] := pivot;
+        data[end] := data[last_low_partition_index + 1];
+        data[last_low_partiton_index + 1] := pivot;
 
         // Return the location of the pivot to distinguish the 2 partitions
         return last_low_partition_index + 1;
@@ -739,15 +739,15 @@ start
         Random ran := new Random();
 
         // Iterate through the entire array
-        for mut i32 i in range(0, *data.len(), 1)
+        for mut i32 i in range(0, data.len(), 1)
         start
             // Get a random index
-            i32 swap_index := ran.randInt(0, *data.len()));
+            i32 swap_index := ran.randInt(0, data.len()));
 
             // Swap the 2 elements
-            i32 temp := *data[i];
-            *data[i] := *data[swap_index];
-            *data[swap_index] := temp;
+            i32 temp := data[i];
+            data[i] := data[swap_index];
+            data[swap_index] := temp;
         finish for
 
     finish knuth_shuffle
@@ -787,7 +787,7 @@ start
     ext fn selection_sort(&self, &mut Vec<i32> data) -> void
         // Loop through all but the last element because an array of length 1
         // is already sorted
-        for mut i32 i in range(0, *data.len() - 1, 1)
+        for mut i32 i in range(0, data.len() - 1, 1)
         start
             // Assume first element is smallest
             // Can directly assign here because i32 is a value type, so the value
@@ -795,19 +795,19 @@ start
             mut i32 smallest_index := i;
             
             // Go through the rest of the array
-            for mut i32 j in range(i + 1, *data.len(), 1)
+            for mut i32 j in range(i + 1, data.len(), 1)
             start
                 // If we have a smaller element, save the new lower index
-                if *data[smallest_index] > *data[j]
+                if data[smallest_index] > data[j]
                 start
                     smallest_index := j;
                 finish if
             finish for
 
             // Move the smallest element in place
-            i32 temp := *data[i];
-            *data[i] := *data[smallest_index];
-            *data[smallest_index] := temp;
+            i32 temp := data[i];
+            data[i] := data[smallest_index];
+            data[smallest_index] := temp;
         finish for
     finish selection_sort
 
@@ -884,13 +884,13 @@ start
     // == 0 means draw
     ext fn attack(&self, &Transformer oponent) -> i32
     start
-        mut i32 power_diff := self.power - *oppenent.get_power();
+        mut i32 power_diff := self.power - oppenent.get_power();
         
-        &Transformer oppenent_leader := *oppenent.get_leader();
-        if *oppenent_leader != null
+        &Transformer oppenent_leader := oppenent.get_leader();
+        if oppenent_leader != null
         start
             // We will say the leader helps out if their comrade is being attacked
-            power_diff := power_diff - *oppenent_leader.get_power();
+            power_diff := power_diff - oppenent_leader.get_power();
         finish if
 
         return power_diff;
