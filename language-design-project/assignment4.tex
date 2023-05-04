@@ -177,7 +177,7 @@ The key organizational concepts in Rust-eze are as follows:
 
 The program below defines a new \textbf{model} called Lightning that contains
 3 instance variables: an exterior String called \textit{name}, an exterior
-integer called \textit{age}, and an interior integer called \textit{miles}. Each
+32-bit signed integer called \textit{age}, and an interior 32-bit signed integer called \textit{miles}. Each
 of these instance variables are initialized within the constructor. Each
 Lightning has 2 member functions: \textit{drive} and \textit{say\_it}.
 \textit{drive} is an exterior method as it is defined with the \textbf{ext}
@@ -421,8 +421,8 @@ S $\vdash$ e1 + e2 : T \\
 \\
 S $\vdash$ e1 : String \\
 S $\vdash$ e2 : T \\
-T is either a primitive or is a reference type with a String representation \\
------------------------------------------------------------------------------------------------- \\
+T is either a primitive, String, or a reference type that contains a \textit{to\_string} method \\
+----------------------------------------------------------------------------------------------------------------- \\
 S $\vdash$ e1 + e2 : String
 
 
@@ -537,6 +537,8 @@ start
 
         // Join the elements of the vector together to form a string
         // by using the string representation of each of the elements
+        // This only works if the string concatenation type rule is valid,
+        // which it is in this scenario because char is a primitive type
         return out_vec.join("");
     finish encrypt
 
@@ -767,6 +769,7 @@ start
 
         // Shuffle the vector
         sas.knuth_shuffle(&mut my_arr);
+        // Can also do println(my_arr), but adding the to_string call makes the code clearer
         println(my_arr.to_string());
 
         // Sort the vector
