@@ -65,7 +65,8 @@
     char,
     self,
     void,
-    new
+    new,
+    null
   },
   keywordstyle=[1]\color{blue},
   keywordstyle=[2]\color{red},
@@ -112,8 +113,8 @@
 
 \section{Introduction}
 Rust-eze is modern, object-oriented, type-safe programming language. It inherits
-the best parts of Rust and Java to provide a fast and memory-safe languge for
-the object-oriented paradim, while also bringing in some syntactic influence from Pascal.
+the best parts of Rust and Java to provide a fast and memory-safe language for
+the object-oriented paradigm, while also bringing in some syntactic influence from Pascal.
 Rust-eze does, however, differ from its parent languages in the following ways:
 \begin{enumerate}
     \item Rust-eze is an object-oriented language, which, like Java, means there
@@ -180,7 +181,7 @@ integer called \textit{age}, and an interior integer called \textit{miles}. Each
 of these instance variables are initialized within the constructor. Each
 Lightning has 2 member functions: \textit{drive} and \textit{say\_it}.
 \textit{drive} is an exterior method as it is defined with the \textbf{ext}
-keyword. Since it modifies an instance variable, it must take it a mutable
+keyword. Since it modifies an instance variable, it must take in a mutable
 reference to the object in addition to the number of miles being driven. Inside
 of the method, a new local variable called \textit{new\_mileage} is declared
 without the \textbf{mut} keyword, meaning that it is immutable and is a constant
@@ -697,7 +698,7 @@ start
 
     finish quicksort_with_indices
 
-    // Delare a private function for sorting the array that returns the index
+    // Declare a private function for sorting the array that returns the index
     // for the partition
     fn partition(&self, &mut Vec<i32> data, i32 start_index, i32 end_index, i32 pivot_index) -> i32
     start
@@ -750,7 +751,6 @@ start
             data[i] := data[swap_index];
             data[swap_index] := temp;
         finish for
-
     finish knuth_shuffle
 
     ext fn main(Vec<String> args) -> void
@@ -765,7 +765,7 @@ start
         
         SortsAndShuffles sas := new SortsAndShuffles();
 
-        // Shuffly the vector
+        // Shuffle the vector
         sas.knuth_shuffle(&mut my_arr);
         println(my_arr.to_string());
 
@@ -773,7 +773,6 @@ start
         sas.quicksort(&mut my_arr);
         println(my_arr.to_string());
     finish main
-
 finish model
 \end{lstlisting}
 
@@ -883,15 +882,15 @@ start
     // > 0 means win
     // < 0 means loss
     // == 0 means draw
-    ext fn attack(&self, &Transformer oponent) -> i32
+    ext fn attack(&self, &Transformer opponent) -> i32
     start
-        mut i32 power_diff := self.power - oppenent.get_power();
+        mut i32 power_diff := self.power - opponent.get_power();
         
-        &Transformer oppenent_leader := oppenent.get_leader();
-        if oppenent_leader != null
+        &Transformer opponent_leader := opponent.get_leader();
+        if opponent_leader != null
         start
             // We will say the leader helps out if their comrade is being attacked
-            power_diff := power_diff - oppenent_leader.get_power();
+            power_diff := power_diff - opponent_leader.get_power();
         finish if
 
         return power_diff;
