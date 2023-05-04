@@ -484,7 +484,7 @@ S $\vdash$ e1 + e2 : String
 // Model definition for the Caesar cipher
 model CaesarCipher
 start
-    // Encryt a string based on the shift amount
+    // Encrypt a string based on the shift amount
     ext fn encrypt(&self, &String in_str, i32 shift_amt) -> String
     start
         // Get the real shift amount and create a new vector of characters
@@ -728,7 +728,7 @@ start
 
         // Move the pivot to the appropriate location
         data[end] := data[last_low_partition_index + 1];
-        data[last_low_partiton_index + 1] := pivot;
+        data[last_low_partition_index + 1] := pivot;
 
         // Return the location of the pivot to distinguish the 2 partitions
         return last_low_partition_index + 1;
