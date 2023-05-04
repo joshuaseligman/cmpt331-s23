@@ -371,7 +371,7 @@ Tokens:
 \end{itemize}
 
 \subsubsection{Keywords Different from Rust and Java}
-\textbf{New keywords:} range, model, specs, start, finish, ext, Tuple \\
+\textbf{New keywords:} println, range, model, specs, start, finish, ext, Tuple \\
 \textbf{Removed keywords:} use, class, match, do, private, byte, short, str,
                            boolean, static, public, double, long, float,
                            int, as, pub, impl, struct \\
@@ -697,7 +697,6 @@ start
         // Perform quicksort on the 2 sides of the partition
         self.quicksort_with_indices(data, start_index, partition_out - 1);
         self.quicksort_with_indices(data, partition_out + 1, end_index);
-
     finish quicksort_with_indices
 
     // Declare a private function for sorting the array that returns the index
